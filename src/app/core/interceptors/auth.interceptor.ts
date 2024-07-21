@@ -5,15 +5,17 @@ import {
   HttpEvent,
   HttpInterceptor
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { finalize, Observable } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { NgxUiLoaderService } from 'ngx-ui-loader';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-  constructor(private cookieService: CookieService) {}
+  constructor(private cookieService: CookieService, private ngxService: NgxUiLoaderService) {}
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    this.ngxService.start();
     if (this.shouldInterceptRequest(request)) {
       const authRequest = request.clone({
         setHeaders: {
@@ -21,9 +23,11 @@ export class AuthInterceptor implements HttpInterceptor {
         }
       });
 
-      return next.handle(authRequest);
+      return next.handle(authRequest)
+      .pipe(finalize(() => this.ngxService.stop()));
     }
-    return next.handle(request);
+    return next.handle(request)
+    .pipe(finalize(() => this.ngxService.stop()));
   }
 
   private shouldInterceptRequest(request: HttpRequest<any>): boolean {
