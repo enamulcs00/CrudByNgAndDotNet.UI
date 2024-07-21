@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from 'src/app/features/auth/models/user.model';
+import { User, dropDownMenuItems } from 'src/app/features/auth/models/user.model';
 import { AuthService } from 'src/app/features/auth/services/auth.service';
 
 @Component({
@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/features/auth/services/auth.service';
 })
 export class NavbarComponent implements OnInit {
   user?: User;
-
+  dropDownMenuItems:dropDownMenuItems[] = [{text:'Categories', link:'/admin/categories'}, {text:'BlogPosts',link:'/admin/blogposts'}, {text:'Users',link:'/admin/users'}]
   constructor(private authService: AuthService,
     private router: Router) {
   }
@@ -30,7 +30,7 @@ export class NavbarComponent implements OnInit {
 
   onLogout(): void {
     this.authService.logout();
-    this.router.navigateByUrl('/');
+    this.router.navigateByUrl('/account/login');
   }
 
 }
