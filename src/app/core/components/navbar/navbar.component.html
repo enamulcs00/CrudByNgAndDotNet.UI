@@ -17,12 +17,10 @@
               Admin
             </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" [routerLink]="['/admin/categories']">Categories</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" [routerLink]="['/admin/blogposts']">BlogPosts</a></li>
-              <!-- <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+              <li *ngFor="let item of dropDownMenuItems;  let last=last"
+              ><a class="dropdown-item" [routerLink]="[item.link]">{{item.text}}</a>
+              <hr class="dropdown-divider" *ngIf="!last">
+            </li>
             </ul>
           </li>
         </ng-container>
@@ -34,7 +32,7 @@
       <div class="d-flex">
         <ng-container *ngIf="user === undefined;else showLogout">
           <!-- Show Login Button -->
-          <a [routerLink]="['/login']" class="btn btn-primary">Login</a>
+          <a [routerLink]="['/account/login']" class="btn btn-primary">Login</a>
 
         </ng-container>
         <ng-template #showLogout>

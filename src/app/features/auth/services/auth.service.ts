@@ -4,8 +4,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { LoginResponse } from '../models/login-response.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { User } from '../models/user.model';
+import { RegistrationResponseDto, User, UserForRegistrationDto } from '../models/user.model';
 import { CookieService } from 'ngx-cookie-service';
+import { ForgotPassword, ResetPasswordDto } from 'src/app/shared/models/ForgotPassword';
 
 @Injectable({
   providedIn: 'root'
@@ -56,5 +57,17 @@ export class AuthService {
     this.cookieService.delete('Authorization', '/');
     this.$user.next(undefined);
   }
+// forgot password
 
+public forgotPassword = (body: ForgotPassword) => {
+  return this.http.post(`${environment.apiBaseUrl}/api/Auth/ForgotPassword`, body);
+}
+
+public resetPassword = (body: ResetPasswordDto) => {
+  return this.http.post(`${environment.apiBaseUrl}/api/Auth/ResetPassword`, body);
+}
+
+public registerUser = (body: UserForRegistrationDto) => {
+  return this.http.post<RegistrationResponseDto> (`${environment.apiBaseUrl}/api/Auth/register`, body);
+}
 }

@@ -24,7 +24,7 @@ export const authGuard: CanActivateFn = (route, state) => {
     if (expirationDate < currentTime) {
       // Logout
       authService.logout();
-      return router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } })
+      return router.createUrlTree(['/account/login'], { queryParams: { returnUrl: state.url } })
     } else {
       // Token is still valid
 
@@ -38,6 +38,6 @@ export const authGuard: CanActivateFn = (route, state) => {
   } else {
     // Logout
     authService.logout();
-    return router.createUrlTree(['/login'], { queryParams: { returnUrl: state.url } })
+    return router.createUrlTree(['/account/login'], { queryParams: { returnUrl: state.url } })
   }
 };
