@@ -19,7 +19,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let blogPost of blogPosts">
+        <tr *ngFor="let blogPost of blogPosts.data">
           <td>{{blogPost.title}}</td>
           <td>{{blogPost.shortDescription}}</td>
           <td>{{blogPost.isVisible}}</td>

@@ -3,3 +3,8 @@ export interface LoginResponse {
   email: string;
   roles: string[];
 }
+export interface ILoggedInUser {
+  success: boolean
+  message: string
+  data: LoginResponse
+}

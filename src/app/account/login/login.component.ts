@@ -3,6 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/features/auth/services/auth.service';
+import { ILoggedInUser } from 'src/app/features/auth/models/login-response.model';
 
 @Component({
   selector: 'app-login',
@@ -34,28 +35,31 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.authService.login(this.loginForm.value)
     .subscribe({
-      next: (response) => {
+      next: (response:ILoggedInUser) => {
         this.loading = false;
-
         // Set Auth Cookie
-        this.cookieService.set('Authorization', `Bearer ${response.token}`,
+        this.cookieService.set('Authorization', `Bearer ${response.data.token}`,
         undefined, '/', undefined, true, 'Strict');
 
         // Set User
         this.authService.setUser({
-          email: response.email,
-          roles: response.roles
+          email: response.data.email,
+          roles: response.data.roles
         });
 
         // Redirect back to Home
         this.router.navigateByUrl('/');
 
+      },
+      error:()=>{
+        this.loading = false;        
+      },
+      complete:()=>{
+        this.loading = false;
       }
     });
   }
 
    // convenience getter for easy access to form fields
-   get getControls():any {
-    
-    return this.loginForm.controls; }
+   get getControls():any { return this.loginForm.controls; }
 }
