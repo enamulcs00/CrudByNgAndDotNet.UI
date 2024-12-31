@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LoginRequest } from '../models/login-request.model';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { LoginResponse } from '../models/login-response.model';
+import { ILoggedInUser } from '../models/login-response.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { RegistrationResponseDto, User, UserForRegistrationDto } from '../models/user.model';
@@ -18,8 +18,8 @@ export class AuthService {
   constructor(private http: HttpClient,
     private cookieService: CookieService) { }
 
-  login(request: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${environment.apiBaseUrl}/api/auth/login`, {
+  login(request: LoginRequest): Observable<ILoggedInUser> {
+    return this.http.post<ILoggedInUser>(`${environment.apiBaseUrl}/api/auth/login`, {
       email: request.email,
       password: request.password
     });

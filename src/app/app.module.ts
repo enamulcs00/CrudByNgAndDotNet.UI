@@ -19,7 +19,9 @@ import { BlogDetailsComponent } from './features/public/blog-details/blog-detail
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { CommonModule } from '@angular/common';
 import { NgxUiLoaderModule } from 'ngx-ui-loader';
-
+import { ToastrModule } from 'ngx-toastr';
+import { ErrorHandlerInterceptor } from './core/interceptors/error-handler.interceptor';
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,12 +39,19 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
     CommonModule,
     MarkdownModule.forRoot(),
-    NgxUiLoaderModule
+    NgxUiLoaderModule,
+    ToastrModule.forRoot(
+      {
+        timeOut: 5000,
+        preventDuplicates: true,
+      }
+    ) 
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
@@ -50,6 +59,11 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
+    },
+    {
+      provide : HTTP_INTERCEPTORS,
+      useClass: ErrorHandlerInterceptor,
+      multi:true
     }
   ],
   bootstrap: [AppComponent]

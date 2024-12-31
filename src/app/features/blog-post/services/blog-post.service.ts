@@ -5,6 +5,7 @@ import { BlogPost } from '../models/blog-post.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { UpdateBlogPost } from '../models/update-blog-post.model';
+import { ApiResponse } from 'src/app/shared/models/general';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,8 @@ export class BlogPostService {
     return this.http.post<BlogPost>(`${environment.apiBaseUrl}/api/blogposts?addAuth=true`, data);
   }
 
-  getAllBlogPosts() : Observable<BlogPost[]> {
-    return this.http.get<BlogPost[]>(`${environment.apiBaseUrl}/api/blogposts`);
+  getAllBlogPosts() : Observable<ApiResponse<BlogPost[]>> {
+    return this.http.get<ApiResponse<BlogPost[]>>(`${environment.apiBaseUrl}/api/blogposts`);
   }
 
   getBlogPostById(id: string): Observable<BlogPost> {

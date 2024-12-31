@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BlogPostService } from '../services/blog-post.service';
 import { Observable } from 'rxjs';
 import { BlogPost } from '../models/blog-post.model';
+import { ApiResponse } from 'src/app/shared/models/general';
 
 @Component({
   selector: 'app-blogpost-list',
@@ -10,7 +11,7 @@ import { BlogPost } from '../models/blog-post.model';
 })
 export class BlogpostListComponent implements OnInit {
 
-  blogPosts$?: Observable<BlogPost[]>;
+  blogPosts$?: Observable<ApiResponse<BlogPost[]>>;
 
   constructor(private blogPostService: BlogPostService) {
 
