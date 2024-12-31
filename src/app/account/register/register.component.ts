@@ -8,7 +8,10 @@ import { PasswordConfirmationValidatorService } from 'src/app/shared/custom-vali
 
 
 
-@Component({ templateUrl: 'register.component.html' })
+@Component({
+    templateUrl: 'register.component.html',
+    standalone: false
+})
 export class RegisterComponent implements OnInit {
     registerForm!: FormGroup;
     errorMessage: string = '';

@@ -5,9 +5,10 @@ import { BlogImage } from '../../models/blog-image.model';
 import { NgForm } from '@angular/forms';
 
 @Component({
-  selector: 'app-image-selector',
-  templateUrl: './image-selector.component.html',
-  styleUrls: ['./image-selector.component.css']
+    selector: 'app-image-selector',
+    templateUrl: './image-selector.component.html',
+    styleUrls: ['./image-selector.component.css'],
+    standalone: false
 })
 export class ImageSelectorComponent implements OnInit {
   private file?: File;

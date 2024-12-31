@@ -6,9 +6,10 @@ import { AuthService } from 'src/app/features/auth/services/auth.service';
 import { ILoggedInUser } from 'src/app/features/auth/models/login-response.model';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css'],
+    standalone: false
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
