@@ -7,7 +7,7 @@ import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { CategoryListComponent } from './features/category/category-list/category-list.component';
 import { AddCategoryComponent } from './features/category/add-category/add-category.component';
 import { FormsModule } from '@angular/forms';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { EditCategoryComponent } from './features/category/edit-category/edit-category.component';
 import { BlogpostListComponent } from './features/blog-post/blogpost-list/blogpost-list.component';
 import { AddBlogpostComponent } from './features/blog-post/add-blogpost/add-blogpost.component';
@@ -22,50 +22,41 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { ToastrModule } from 'ngx-toastr';
 import { ErrorHandlerInterceptor } from './core/interceptors/error-handler.interceptor';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-@NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    CategoryListComponent,
-    AddCategoryComponent,
-    EditCategoryComponent,
-    BlogpostListComponent,
-    AddBlogpostComponent,
-    EditBlogpostComponent,
-    ImageSelectorComponent,
-    HomeComponent,
-    BlogDetailsComponent,
-    
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    CommonModule,
-    MarkdownModule.forRoot(),
-    NgxUiLoaderModule,
-    ToastrModule.forRoot(
-      {
-        timeOut: 5000,
-        preventDuplicates: true,
-      }
-    ) 
-  ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: AuthInterceptor,
-      multi: true
-    },
-    {
-      provide : HTTP_INTERCEPTORS,
-      useClass: ErrorHandlerInterceptor,
-      multi:true
-    }
-  ],
-  bootstrap: [AppComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        NavbarComponent,
+        CategoryListComponent,
+        AddCategoryComponent,
+        EditCategoryComponent,
+        BlogpostListComponent,
+        AddBlogpostComponent,
+        EditBlogpostComponent,
+        ImageSelectorComponent,
+        HomeComponent,
+        BlogDetailsComponent,
+    ],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    bootstrap: [AppComponent], imports: [BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        FormsModule,
+        CommonModule,
+        MarkdownModule.forRoot(),
+        NgxUiLoaderModule,
+        ToastrModule.forRoot({
+            timeOut: 5000,
+            preventDuplicates: true,
+        })], providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: ErrorHandlerInterceptor,
+            multi: true
+        },
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }
