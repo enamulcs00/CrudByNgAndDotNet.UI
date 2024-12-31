@@ -7,9 +7,10 @@ import { PasswordConfirmationValidatorService } from 'src/app/shared/custom-vali
 import { ResetPasswordDto, ResetPasswordRequest } from 'src/app/shared/models/ForgotPassword';
 
 @Component({
-  selector: 'app-reset-password',
-  templateUrl: './reset-password.component.html',
-  styleUrls: ['./reset-password.component.css']
+    selector: 'app-reset-password',
+    templateUrl: './reset-password.component.html',
+    styleUrls: ['./reset-password.component.css'],
+    standalone: false
 })
 export class ResetPasswordComponent {
   resetPasswordForm!: FormGroup;

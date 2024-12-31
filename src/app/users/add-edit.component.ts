@@ -4,7 +4,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 
-@Component({ templateUrl: 'add-edit.component.html' })
+@Component({
+    templateUrl: 'add-edit.component.html',
+    standalone: false
+})
 export class AddEditComponent implements OnInit {
     form!: FormGroup;
     id?: string;

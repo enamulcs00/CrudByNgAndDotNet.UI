@@ -5,9 +5,10 @@ import { BlogPost } from '../models/blog-post.model';
 import { ApiResponse } from 'src/app/shared/models/general';
 
 @Component({
-  selector: 'app-blogpost-list',
-  templateUrl: './blogpost-list.component.html',
-  styleUrls: ['./blogpost-list.component.css']
+    selector: 'app-blogpost-list',
+    templateUrl: './blogpost-list.component.html',
+    styleUrls: ['./blogpost-list.component.css'],
+    standalone: false
 })
 export class BlogpostListComponent implements OnInit {
 

@@ -5,9 +5,10 @@ import { BlogPost } from '../../blog-post/models/blog-post.model';
 import { ApiResponse } from 'src/app/shared/models/general';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    styleUrls: ['./home.component.css'],
+    standalone: false
 })
 export class HomeComponent implements OnInit {
 
