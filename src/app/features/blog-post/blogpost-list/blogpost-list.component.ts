@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { BlogPostService } from '../services/blog-post.service';
 import { Observable } from 'rxjs';
 import { BlogPost } from '../models/blog-post.model';
 import { ApiResponse } from 'src/app/shared/models/general';
+import { YoutubeRepository } from 'src/app/shared/_services';
 
 @Component({
     selector: 'app-blogpost-list',
@@ -12,15 +12,15 @@ import { ApiResponse } from 'src/app/shared/models/general';
 })
 export class BlogpostListComponent implements OnInit {
 
-  blogPosts$?: Observable<ApiResponse<BlogPost[]>>;
+  blogPosts$?: Observable<BlogPost[]>;
 
-  constructor(private blogPostService: BlogPostService) {
+  constructor(private serv: YoutubeRepository) {
 
   }
 
   ngOnInit(): void {
     // get all blog posts from API
-    this.blogPosts$ = this.blogPostService.getAllBlogPosts();
+    this.blogPosts$ = this.serv.getUserList();
   }
 
 }

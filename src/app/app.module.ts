@@ -22,6 +22,11 @@ import { NgxUiLoaderModule } from 'ngx-ui-loader';
 import { ToastrModule } from 'ngx-toastr';
 import { ErrorHandlerInterceptor } from './core/interceptors/error-handler.interceptor';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
+import { StoreModule } from '@ngrx/store';
+import { rootReducer } from './store/reducers';
+import { ApiService } from './shared/_services/api.service';
+import { HttpService } from './shared/_services/http.service';
+import { YoutubeRepository } from './shared/_services/store-repo-service';
 @NgModule({ declarations: [
         AppComponent,
         NavbarComponent,
@@ -46,7 +51,11 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
         ToastrModule.forRoot({
             timeOut: 5000,
             preventDuplicates: true,
-        })], providers: [
+        }),
+        StoreModule.forRoot(rootReducer)],
+         providers: [
+            HttpService, ApiService, YoutubeRepository,
+
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,

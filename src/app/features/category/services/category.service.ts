@@ -6,6 +6,7 @@ import { Category } from '../models/category.model';
 import { environment } from 'src/environments/environment';
 import { UpdateCategoryRequest } from '../models/update-category-request.model';
 import { CookieService } from 'ngx-cookie-service';
+import { ApiResponse } from 'src/app/shared/models/general';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,7 @@ export class CategoryService {
 
   getAllCategories(
     query?: string, sortBy?: string, sortDirection?: string,
-    pageNumber?: number, pageSize?: number): Observable<Category[]> {
+    pageNumber?: number, pageSize?: number): Observable<ApiResponse<Category[]>> {
     let params = new HttpParams();
 
     if (query) {
@@ -40,7 +41,7 @@ export class CategoryService {
       params = params.set('pageSize', pageSize)
     }
 
-    return this.http.get<Category[]>(`${environment.apiBaseUrl}/api/categories`, {
+    return this.http.get<ApiResponse<Category[]>>(`${environment.apiBaseUrl}/api/categories`, {
       params: params
     });
   }
@@ -49,8 +50,8 @@ export class CategoryService {
     return this.http.get<Category>(`${environment.apiBaseUrl}/api/categories/${id}`);
   }
 
-  getCategoryCount(): Observable<number> {
-    return this.http.get<number>(`${environment.apiBaseUrl}/api/categories/count`);
+  getCategoryCount(): Observable<ApiResponse<number>> {
+    return this.http.get<ApiResponse<number>>(`${environment.apiBaseUrl}/api/categories/count`);
   }
 
   addCategory(model: AddCategoryRequest): Observable<void> {

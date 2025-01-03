@@ -2,7 +2,7 @@
   <div class="my-5">
     <div class="row align-items-strech">
       <ng-container *ngIf="blogs$ | async as blogs">
-        <div class="col-12 col-md-4 mb-3" *ngFor="let blog of blogs.data">
+        <div class="col-12 col-md-4 mb-3" *ngFor="let blog of blogs">
           <div class="card h-100">
             <img [src]="blog.featuredImageUrl" class="card-img-top"
             [alt]="blog.title">

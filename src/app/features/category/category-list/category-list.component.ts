@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../services/category.service';
 import { Category } from '../models/category.model';
 import { Observable } from 'rxjs';
+import { ApiResponse } from 'src/app/shared/models/general';
 
 @Component({
     selector: 'app-category-list',
@@ -10,7 +11,7 @@ import { Observable } from 'rxjs';
     standalone: false
 })
 export class CategoryListComponent implements OnInit {
-  categories$?: Observable<Category[]>;
+  categories$?: Observable<ApiResponse<Category[]>>;
   totalCount?: number;
   list: number[] = [];
   pageNumber = 1;
@@ -23,8 +24,8 @@ export class CategoryListComponent implements OnInit {
     this.categoryService.getCategoryCount()
       .subscribe({
         next: (value) => {
-          this.totalCount = value;
-          this.list = new Array(Math.ceil(value / this.pageSize))
+          this.totalCount = value.data;
+          this.list = new Array(Math.ceil(value.data / this.pageSize))
 
           this.categories$ = this.categoryService.getAllCategories(
             undefined,
