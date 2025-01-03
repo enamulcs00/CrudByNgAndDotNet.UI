@@ -6,6 +6,7 @@ import { CategoryService } from '../../category/services/category.service';
 import { Observable, Subscription } from 'rxjs';
 import { Category } from '../../category/models/category.model';
 import { ImageService } from 'src/app/shared/components/image-selector/image.service';
+import { ApiResponse } from 'src/app/shared/models/general';
 
 @Component({
     selector: 'app-add-blogpost',
@@ -16,7 +17,7 @@ import { ImageService } from 'src/app/shared/components/image-selector/image.ser
 export class AddBlogpostComponent implements OnInit, OnDestroy {
   model: AddBlogPost;
   isImageSelectorVisible : boolean = false;
-  categories$?: Observable<Category[]>;
+  categories$?: Observable<ApiResponse<Category[]>>;
 
   imageSelectorSubscription?: Subscription;
 

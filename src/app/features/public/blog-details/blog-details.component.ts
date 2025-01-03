@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { BlogPostService } from '../../blog-post/services/blog-post.service';
 import { Observable } from 'rxjs';
 import { BlogPost } from '../../blog-post/models/blog-post.model';
+import { ApiResponse } from 'src/app/shared/models/general';
 
 @Component({
     selector: 'app-blog-details',
@@ -12,7 +13,7 @@ import { BlogPost } from '../../blog-post/models/blog-post.model';
 })
 export class BlogDetailsComponent implements OnInit {
   url: string | null = null;
-  blogPost$? : Observable<BlogPost>;
+  blogPost$? : Observable<ApiResponse<BlogPost>>;
 
   constructor(private route: ActivatedRoute,
     private blogPostService: BlogPostService) {

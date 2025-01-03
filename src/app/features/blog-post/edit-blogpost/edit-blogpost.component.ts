@@ -7,6 +7,7 @@ import { CategoryService } from '../../category/services/category.service';
 import { Category } from '../../category/models/category.model';
 import { UpdateBlogPost } from '../models/update-blog-post.model';
 import { ImageService } from 'src/app/shared/components/image-selector/image.service';
+import { ApiResponse } from 'src/app/shared/models/general';
 
 @Component({
     selector: 'app-edit-blogpost',
@@ -17,7 +18,7 @@ import { ImageService } from 'src/app/shared/components/image-selector/image.ser
 export class EditBlogpostComponent implements OnInit, OnDestroy {
   id: string | null = null;
   model?: BlogPost;
-  categories$? : Observable<Category[]>;
+  categories$? : Observable<ApiResponse<Category[]>>;
   selectedCategories?: string[];
   isImageSelectorVisible : boolean = false;
 
