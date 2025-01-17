@@ -17,7 +17,7 @@ import { ApiResponse } from 'src/app/shared/models/general';
 export class AddBlogpostComponent implements OnInit, OnDestroy {
   model: AddBlogPost;
   isImageSelectorVisible : boolean = false;
-  categories$?: Observable<ApiResponse<Category[]>>;
+  categories$?: Observable<Category[]>;
 
   imageSelectorSubscription?: Subscription;
 

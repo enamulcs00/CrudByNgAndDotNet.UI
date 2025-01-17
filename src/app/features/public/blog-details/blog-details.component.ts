@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BlogPostService } from '../../blog-post/services/blog-post.service';
-import { Observable } from 'rxjs';
+import { Observable, take } from 'rxjs';
 import { BlogPost } from '../../blog-post/models/blog-post.model';
-import { ApiResponse } from 'src/app/shared/models/general';
+import { StoreRepoService } from 'src/app/shared/_services';
 
 @Component({
     selector: 'app-blog-details',
@@ -12,24 +11,22 @@ import { ApiResponse } from 'src/app/shared/models/general';
     standalone: false
 })
 export class BlogDetailsComponent implements OnInit {
-  url: string | null = null;
-  blogPost$? : Observable<ApiResponse<BlogPost>>;
+  objId: string | null = null;
+  blogPost$? : Observable<BlogPost>;
 
-  constructor(private route: ActivatedRoute,
-    private blogPostService: BlogPostService) {
+  constructor(private route: ActivatedRoute, private srv:StoreRepoService) {
 
   }
   ngOnInit(): void {
-    this.route.paramMap
+    this.route.paramMap.pipe(take(1))
     .subscribe({
       next: (params) => {
-        this.url = params.get('url');
+        this.objId = params.get('url');
       }
     });
-
-    // Fetch blog details by url
-    if (this.url) {
-      this.blogPost$ = this.blogPostService.getBlogPostByUrlHandle(this.url);
+   // Fetch blog details by object id
+    if (this.objId) {      
+      this.blogPost$ = this.srv.getUserById(this.objId);
     }
   }
 }

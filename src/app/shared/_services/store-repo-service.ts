@@ -1,10 +1,16 @@
 import {Injectable} from '@angular/core';
 import {Store} from '@ngrx/store';
 import {
+  getCategories,
+  getCategoryLoaded,
+  getCategoryLoading,
   getPostError,
   getPostLoaded,
   getPostLoading,
   getPosts,
+  getRegisteredUserLoaded,
+  getRegisteredUserLoading,
+  getRegisteredUsers,
   getUserById,
   getUserLoaded,
   getUserLoading,
@@ -13,6 +19,9 @@ import {
 } from 'src/app/store/reducers';
 import {combineLatest, Observable} from 'rxjs';
 import {
+  RegisteredUserListErrorAction,
+  RegisteredUserListRequestAction,
+  RegisteredUserListSuccessAction,
   UserAddAction,
   UserDeleteAction,
   UserListErrorAction,
@@ -31,21 +40,61 @@ import {
   PostListSuccessAction
 } from 'src/app/store/actions/post-action';
 import { BlogPost } from 'src/app/features/blog-post/models/blog-post.model';
-import { ApiResponse } from '../models/general';
+import { ApiResponse, IServiceParams } from '../models/general';
+import { Category } from 'src/app/features/category/models/category.model';
+import { CategoryListErrorAction, CategoryListRequestAction, CategoryListSuccessAction } from 'src/app/store/actions/category-action';
+import { AccountService } from './account.service';
 
 
 @Injectable()
-export class YoutubeRepository {
-  constructor(private store: Store<RootReducerState>, private apiService: ApiService) {
+export class StoreRepoService {
+  constructor(private store: Store<RootReducerState>, private apiService: ApiService,private usrSrv:AccountService) {
   }
 
-  getUserList(force = false): Observable<BlogPost[]> {
+  getRegisterdUsers(force = false): Observable<User[]> {
+    const loading$ = this.store.select(getRegisteredUserLoading);
+    const loaded$ = this.store.select(getRegisteredUserLoaded);
+    combineLatest([loaded$, loading$]).pipe(take(1)).subscribe((data) => {
+      if ((!data[0] && !data[1]) || force) {        
+        this.store.dispatch(new RegisteredUserListRequestAction());
+        this.usrSrv.getAllUsers().pipe(take(1)).subscribe({
+          next:(value:ApiResponse<User[]>)=> {
+          this.store.dispatch(new RegisteredUserListSuccessAction({data: value.data}));
+          },
+          error:() =>{
+            this.store.dispatch(new RegisteredUserListErrorAction());
+          }
+        });
+      }
+    });
+    return this.store.select(getRegisteredUsers) as Observable<User[]>;
+  }
+   getAllCategories(param:IServiceParams , force = false): Observable<Category[]> {
+    const loading$ = this.store.select(getCategoryLoading);
+    const loaded$ = this.store.select(getCategoryLoaded);
+    combineLatest([loaded$, loading$]).pipe(take(1)).subscribe((data) => {
+      if ((!data[0] && !data[1]) || force) {        
+        this.store.dispatch(new CategoryListRequestAction());
+        this.apiService.getAllCategories(param).pipe(take(1)).subscribe({
+          next:(value:ApiResponse<Category[]>)=> {
+          this.store.dispatch(new CategoryListSuccessAction({data: value.data}));
+          },
+          error:() =>{
+            this.store.dispatch(new CategoryListErrorAction());
+          }
+        });
+      }
+    });
+    return this.store.select(getCategories) as Observable<Category[]>;
+    }
+
+  getUserList(force = false,): Observable<BlogPost[]> {
     const loading$ = this.store.select(getUserLoading);
     const loaded$ = this.store.select(getUserLoaded);
     combineLatest([loaded$, loading$]).pipe(take(1)).subscribe((data) => {
       if ((!data[0] && !data[1]) || force) {        
         this.store.dispatch(new UserListRequestAction());
-        this.apiService.getAll().subscribe({
+        this.apiService.getAll().pipe(take(1)).subscribe({
           next:(value:ApiResponse<BlogPost[]>)=> {
           this.store.dispatch(new UserListSuccessAction({data: value.data}));
           },
@@ -58,7 +107,7 @@ export class YoutubeRepository {
     return this.store.select(getUsers) as any;
   }
 
-  deleteUser(id: number) {
+  deleteUser(id: string) {
     // first we will call actual delete api
     this.store.dispatch(new UserDeleteAction({id}));
   }
@@ -68,18 +117,20 @@ export class YoutubeRepository {
     this.store.dispatch(new UserUpdateAction({data}));
   }
 
-  addUser(data: User) {
+  addUser(data: BlogPost) {
     // first call api to add a user and then update it in store
     this.store.dispatch(new UserAddAction({data}));
   }
 
-  getUserById(id: number, force = false) {
+  getUserById(id: string, force:boolean = false):Observable<BlogPost> {
     // get user from reducer if exist otherwise from api
     const user$ = this.store.select(state => getUserById(state, id));
     user$.pipe(take(1)).subscribe(res => {
       if (force || !res) {
-        return this.apiService.getUser(id).subscribe(data => {
-          this.store.dispatch(new UserAddAction({data}));
+        return this.apiService.getUser(id).pipe(take(1)).subscribe({
+          next:(data:ApiResponse<BlogPost>)=>{
+          this.store.dispatch(new UserAddAction({data:data.data}));
+          }
         });
       }
       return res;

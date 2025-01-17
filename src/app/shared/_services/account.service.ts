@@ -1,8 +1,9 @@
 ﻿import { Injectable } from '@angular/core';
 import { User } from '../models/user';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { HttpClient } from '@angular/common/http';
+import { ApiResponse } from '../models/general';
 
 
 
@@ -16,7 +17,9 @@ export class AccountService {
     ) {
       
     }
-    getAllUsers() : Observable<User[]> {
-        return this.http.get<User[]>(`${environment.apiBaseUrl}/api/Users`);
+    getAllUsers() : Observable<ApiResponse<User[]>> {
+        return this.http.get<ApiResponse<User[]>>(`${environment.apiBaseUrl}/api/Users`).pipe(map(
+            data => data as ApiResponse<User[]>
+        ));
       }
 }

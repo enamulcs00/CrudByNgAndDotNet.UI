@@ -5,3 +5,13 @@ export interface ApiResponse<T> {
   data: T;              // The actual data returned by the API
   errorDetails?: object;   // Additional error details (optional)
 }
+
+export interface IServiceParams {
+actionName?:string;
+selectorName?:string;
+query?: string;
+sortBy?: string;
+sortDirection?: string;
+pageNumber?: number;
+pageSize?: number;
+}

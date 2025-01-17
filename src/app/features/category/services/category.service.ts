@@ -18,7 +18,7 @@ export class CategoryService {
 
   getAllCategories(
     query?: string, sortBy?: string, sortDirection?: string,
-    pageNumber?: number, pageSize?: number): Observable<ApiResponse<Category[]>> {
+    pageNumber?: number, pageSize?: number): Observable<Category[]> {
     let params = new HttpParams();
 
     if (query) {
@@ -41,7 +41,7 @@ export class CategoryService {
       params = params.set('pageSize', pageSize)
     }
 
-    return this.http.get<ApiResponse<Category[]>>(`${environment.apiBaseUrl}/api/categories`, {
+    return this.http.get<Category[]>(`${environment.apiBaseUrl}/api/categories`, {
       params: params
     });
   }
