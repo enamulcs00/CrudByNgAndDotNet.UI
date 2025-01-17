@@ -18,7 +18,7 @@ import { ApiResponse } from 'src/app/shared/models/general';
 export class EditBlogpostComponent implements OnInit, OnDestroy {
   id: string | null = null;
   model?: BlogPost;
-  categories$? : Observable<ApiResponse<Category[]>>;
+  categories$? : Observable<Category[]>;
   selectedCategories?: string[];
   isImageSelectorVisible : boolean = false;
 

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BlogPost } from '../models/blog-post.model';
 import { ApiResponse } from 'src/app/shared/models/general';
-import { YoutubeRepository } from 'src/app/shared/_services';
+import { StoreRepoService } from 'src/app/shared/_services';
 
 @Component({
     selector: 'app-blogpost-list',
@@ -14,7 +14,7 @@ export class BlogpostListComponent implements OnInit {
 
   blogPosts$?: Observable<BlogPost[]>;
 
-  constructor(private serv: YoutubeRepository) {
+  constructor(private serv: StoreRepoService) {
 
   }
 

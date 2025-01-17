@@ -15,8 +15,8 @@ export interface PostReducerState {
   loading: boolean;
   loaded: boolean;
   error: boolean;
-  entities: { [id: number]: any };
-  ids: number[];
+  entities: { [id: string]: any };
+  ids: string[];
 }
 
 const initialState: PostReducerState = {

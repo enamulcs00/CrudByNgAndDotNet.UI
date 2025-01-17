@@ -2,24 +2,24 @@
   <div class="container">
     <div class="py-5">
       <div class="col-12 col-md-8 col-lg-6 mx-auto">
-        <img [src]="blogPost.data.featuredImageUrl" [title]="blogPost.data.title"
+        <img [src]="blogPost.featuredImageUrl" [title]="blogPost.title"
         class="img-fluid">
 
-        <h1 class="mt-4">{{blogPost.data.title}}</h1>
+        <h1 class="mt-4">{{blogPost.title}}</h1>
 
         <div class="d-flex justify-content-between mt-4">
-          <span>{{blogPost.data.author}}</span>
-          <span>{{blogPost.data.publishedDate | date:'dd-MM-yyyy'}}</span>
+          <span>{{blogPost.author}}</span>
+          <span>{{blogPost.publishedDate | date:'dd-MM-yyyy'}}</span>
         </div>
 
-        <div *ngIf="blogPost.data.categories" class="mt-4">
-          <span class="badge bg-secondary me-2" *ngFor="let category of blogPost.data.categories">
+        <div *ngIf="blogPost.categories" class="mt-4">
+          <span class="badge bg-secondary me-2" *ngFor="let category of blogPost.categories">
             {{category.name}}
           </span>
         </div>
 
         <div class="mt-4 blog-content">
-          <markdown [data]="blogPost.data.content"></markdown>
+          <markdown [data]="blogPost.content"></markdown>
 
         </div>
 

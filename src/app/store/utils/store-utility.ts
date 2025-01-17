@@ -9,7 +9,7 @@ export class StoreUtility {
 
   // {dsdsd:{id:dsdsd,name:"dasds"}}; -> entities
   // [{id:dsdsd,name:"dasds"}];
-  static unNormalized(entities: { [id: number]: any }) {
+  static unNormalized(entities: { [id: string]: any }) {
     if (!entities) {
       return [];
     } else {
@@ -18,11 +18,11 @@ export class StoreUtility {
   }
 
   // [1,2,3,4,5,1];
-  static filterDuplicateIds(ids: number[]) {
+  static filterDuplicateIds(ids: string[]) {
     return ids.filter((elem, index, self) => index === self.indexOf(elem));
   }
 
-  static removeKey(entities: { [id: number]: any }, id: any) {
+  static removeKey(entities: { [id: string]: any }, id: any) {
     const newObj = {...entities};
     delete newObj[id];
     return newObj;

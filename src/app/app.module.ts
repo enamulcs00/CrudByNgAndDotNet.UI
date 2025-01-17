@@ -1,4 +1,4 @@
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -26,7 +26,8 @@ import { StoreModule } from '@ngrx/store';
 import { rootReducer } from './store/reducers';
 import { ApiService } from './shared/_services/api.service';
 import { HttpService } from './shared/_services/http.service';
-import { YoutubeRepository } from './shared/_services/store-repo-service';
+import { StoreRepoService } from './shared/_services/store-repo-service';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 @NgModule({ declarations: [
         AppComponent,
         NavbarComponent,
@@ -52,9 +53,10 @@ import { YoutubeRepository } from './shared/_services/store-repo-service';
             timeOut: 5000,
             preventDuplicates: true,
         }),
-        StoreModule.forRoot(rootReducer)],
+        StoreModule.forRoot(rootReducer),
+        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })],
          providers: [
-            HttpService, ApiService, YoutubeRepository,
+            HttpService, ApiService, StoreRepoService,
 
         {
             provide: HTTP_INTERCEPTORS,

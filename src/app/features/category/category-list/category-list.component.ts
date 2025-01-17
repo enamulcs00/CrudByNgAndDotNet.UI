@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../services/category.service';
 import { Category } from '../models/category.model';
 import { Observable } from 'rxjs';
-import { ApiResponse } from 'src/app/shared/models/general';
+import { ApiResponse, IServiceParams } from 'src/app/shared/models/general';
+import { StoreRepoService } from 'src/app/shared/_services';
 
 @Component({
     selector: 'app-category-list',
@@ -11,13 +12,13 @@ import { ApiResponse } from 'src/app/shared/models/general';
     standalone: false
 })
 export class CategoryListComponent implements OnInit {
-  categories$?: Observable<ApiResponse<Category[]>>;
+  categories$?: Observable<Category[]>;
   totalCount?: number;
   list: number[] = [];
   pageNumber = 1;
-  pageSize = 3;
+  pageSize = 20;
 
-  constructor(private categoryService: CategoryService) {
+  constructor(private categoryService: CategoryService , private _service:StoreRepoService) {
   }
 
   ngOnInit(): void {
@@ -26,14 +27,11 @@ export class CategoryListComponent implements OnInit {
         next: (value) => {
           this.totalCount = value.data;
           this.list = new Array(Math.ceil(value.data / this.pageSize))
-
-          this.categories$ = this.categoryService.getAllCategories(
-            undefined,
-            undefined,
-            undefined,
-            this.pageNumber,
-            this.pageSize
-          );
+          console.log('list ', this.list);
+          const obj:IServiceParams = {};
+          obj.pageNumber = this.pageNumber
+          obj.pageSize = this.pageSize
+          this.categories$ = this._service.getAllCategories(obj);
         }
       })
   }
