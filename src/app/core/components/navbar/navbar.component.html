@@ -10,8 +10,7 @@
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" routerLink="/">Home</a>
         </li>
-
-        <ng-container *ngIf="user !== undefined && user?.roles?.includes('Writer')">
+     <ng-container *ngIf="user !== undefined && user?.roles?.includes('Writer')">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Admin
@@ -24,9 +23,20 @@
             </ul>
           </li>
         </ng-container>
-
-
-      </ul>
+        <ng-container>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Interview
+            </a>
+            <ul class="dropdown-menu">
+              <li *ngFor="let item of interView;  let last=last"
+              ><a class="dropdown-item" [routerLink]="[item]">{{item}}</a>
+              <hr class="dropdown-divider" *ngIf="!last">
+            </li>
+            </ul>
+          </li>
+        </ng-container>
+       </ul>
 
 
       <div class="d-flex">
