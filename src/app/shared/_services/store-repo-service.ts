@@ -96,7 +96,9 @@ export class StoreRepoService {
         this.store.dispatch(new UserListRequestAction());
         this.apiService.getAll().pipe(take(1)).subscribe({
           next:(value:ApiResponse<BlogPost[]>)=> {
+            
           this.store.dispatch(new UserListSuccessAction({data: value.data}));
+
           },
           error:() =>{
             this.store.dispatch(new UserListErrorAction());
