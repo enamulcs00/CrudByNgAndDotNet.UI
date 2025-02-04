@@ -2,7 +2,6 @@ import * as fromUser from './user-reducer';
 import * as fromCategory from './category-reducer';
 import * as fromPost from './post-reducer';
 import {ActionReducerMap, createSelector} from '@ngrx/store';
-import * as fromStore from '../dummy-store';
 
 
 export interface RootReducerState {
@@ -10,7 +9,6 @@ export interface RootReducerState {
   post: fromPost.PostReducerState;
   categories: fromCategory.CategoryReducerState;
   registeredUsers:fromUser.RegisteredUserReducerState,
-  user:fromStore.User
 }
 
 export const rootReducer: ActionReducerMap<RootReducerState> = {
@@ -18,7 +16,6 @@ export const rootReducer: ActionReducerMap<RootReducerState> = {
   post: fromPost.PostReducer,
   categories:fromCategory.CategoryReducer,
   registeredUsers:fromUser.RegisteredUserReducer,
-  user: fromStore.userReducer as any,
 };
 
 export const getUserState = (state: RootReducerState) => state.users;

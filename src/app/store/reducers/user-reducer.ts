@@ -68,13 +68,13 @@ export function UserReducer(state = initialState, action: Action): UserReducerSt
 }
 
 // selectors
-export const getLoading = (state: UserReducerState) => state.loading;
-export const getLoaded = (state: UserReducerState) => state.loaded;
-export const getEntities = (state: UserReducerState) => state.entities;
-export const getIds = (state: UserReducerState) => state.ids;
+export const getLoading = (state: UserReducerState) => state?.loading;
+export const getLoaded = (state: UserReducerState) => state?.loaded;
+export const getEntities = (state: UserReducerState) => state?.entities;
+export const getIds = (state: UserReducerState) => state?.ids;
 export const getUsers = createSelector(getEntities,
   (entities) => StoreUtility.unNormalized(entities));
-export const getError = (state: UserReducerState) => state.error;
+export const getError = (state: UserReducerState) => state?.error;
 
 // Registered user Reducer
 
@@ -144,10 +144,10 @@ export function RegisteredUserReducer(state = registeredUserinitialState, action
 }
 
 // selectors
-export const findLoading = (state: RegisteredUserReducerState) => state.loading;
-export const findLoaded = (state: RegisteredUserReducerState) => state.loaded;
-export const findEntities = (state: RegisteredUserReducerState) => state.entities;
-export const findIds = (state: RegisteredUserReducerState) => state.ids;
+export const findLoading = (state: RegisteredUserReducerState) => state?.loading;
+export const findLoaded = (state: RegisteredUserReducerState) => state?.loaded;
+export const findEntities = (state: RegisteredUserReducerState) => state?.entities;
+export const findIds = (state: RegisteredUserReducerState) => state?.ids;
 export const getRegisteredUsers = createSelector(findEntities,
   (entities) => StoreUtility.unNormalized(entities));
-export const getRegistergError = (state: RegisteredUserReducerState) => state.error;
+export const getRegistergError = (state: RegisteredUserReducerState) => state?.error;

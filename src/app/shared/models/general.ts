@@ -15,3 +15,10 @@ sortDirection?: string;
 pageNumber?: number;
 pageSize?: number;
 }
+
+export interface GenericState<T> {
+  entities: T[];
+  loaded: boolean;
+  loading: boolean;
+  error: string | null;
+}

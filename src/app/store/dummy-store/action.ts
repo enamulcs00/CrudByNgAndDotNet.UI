@@ -1,22 +1,35 @@
+// src/app/store/generic.actions.ts
 import { createAction, props } from '@ngrx/store';
 
-// Generic CRUD Action Helper
-export class CrudActions<T> {
-  constructor(private entityName: string) {}
-
-  load = createAction(`[${this.entityName}] Load`);
-  loadSuccess = createAction(`[${this.entityName}] Load Success`, props<{ data: T[] }>());
-  loadFailure = createAction(`[${this.entityName}] Load Failure`, props<{ error: any }>());
-
-  create = createAction(`[${this.entityName}] Create`, props<{ data: T }>());
-  createSuccess = createAction(`[${this.entityName}] Create Success`, props<{ data: T }>());
-  createFailure = createAction(`[${this.entityName}] Create Failure`, props<{ error: any }>());
-
-  update = createAction(`[${this.entityName}] Update`, props<{ id: string; changes: Partial<T> }>());
-  updateSuccess = createAction(`[${this.entityName}] Update Success`, props<{ data: T }>());
-  updateFailure = createAction(`[${this.entityName}] Update Failure`, props<{ error: any }>());
-
-  delete = createAction(`[${this.entityName}] Delete`, props<{ id: string }>());
-  deleteSuccess = createAction(`[${this.entityName}] Delete Success`, props<{ id: string }>());
-  deleteFailure = createAction(`[${this.entityName}] Delete Failure`, props<{ error: any }>());
+export enum GenericActionTypes {
+  LOAD = '[Generic] Load',
+  LOAD_SUCCESS = '[Generic] Load Success',
+  LOAD_FAILURE = '[Generic] Load Failure',
+  CREATE_SUCCESS = '[Generic] Create Success',
+  UPDATE_SUCCESS = '[Generic] Update Success',
+  DELETE_SUCCESS = '[Generic] Delete Success',
 }
+
+export const GenericActions = {
+  load: createAction(GenericActionTypes.LOAD, props<{ entityName: string }>()),
+  loadSuccess: createAction(
+    GenericActionTypes.LOAD_SUCCESS,
+    props<{ entityName: string; data: any[] }>()
+  ),
+  loadFailure: createAction(
+    GenericActionTypes.LOAD_FAILURE,
+    props<{ entityName: string; error: string }>()
+  ),
+  createSuccess: createAction(
+    GenericActionTypes.CREATE_SUCCESS,
+    props<{ entityName: string; entity: any }>()
+  ),
+  updateSuccess: createAction(
+    GenericActionTypes.UPDATE_SUCCESS,
+    props<{ entityName: string; entity: any }>()
+  ),
+  deleteSuccess: createAction(
+    GenericActionTypes.DELETE_SUCCESS,
+    props<{ entityName: string; id: string }>()
+  ),
+};
