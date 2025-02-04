@@ -1,31 +1,52 @@
+// src/app/store/generic.reducer.ts
 import { createReducer, on } from '@ngrx/store';
-import { EntityState, EntityAdapter } from '@ngrx/entity';
-import { CrudActions } from './action';
+import { GenericActions } from './action';
 
-export interface CrudState<T> extends EntityState<T> {
+export interface GenericState<T> {
+  entities: T[];
+  loaded: boolean;
   loading: boolean;
-  error: any | null;
+  error: string | null;
 }
 
-export function createCrudReducer<T>(actions: CrudActions<T>, adapter: EntityAdapter<T>) {
-  const initialState: CrudState<T> = adapter.getInitialState({
-    loading: false,
+export const initialGenericState: GenericState<any> = {
+  entities: [],
+  loaded: false,
+  loading: false,
+  error: null,
+};
+
+export const genericReducer = createReducer(
+  initialGenericState,
+  on(GenericActions.load, (state) => ({
+    ...state,
+    loading: true,
+    loaded: false,
     error: null,
-  });
-
-  return createReducer(
-    initialState,
-    on(actions.load, (state) => ({ ...state, loading: true })),
-    on(actions.loadSuccess, (state, { data }) => adapter.setAll(data, { ...state, loading: false })),
-    on(actions.loadFailure, (state, { error }) => ({ ...state, loading: false, error })),
-    on(actions.create, (state)=>({...state , loading:true})),
-    on(actions.createSuccess, (state, { data }) => adapter.addOne(data, {...state ,loading:false})),
-    on(actions.createFailure, (state, { error }) => ({ ...state, loading: false, error })),
-    on(actions.update, (state)=>({...state , loading:true})),
-    on(actions.updateSuccess, (state, { data }) => adapter.upsertOne(data, {...state ,loading:false})),
-    on(actions.updateFailure, (state, { error }) => ({ ...state, loading: false, error })),
-    on(actions.delete, (state) => ({ ...state, loading: true })),
-    on(actions.deleteSuccess, (state, { id }) => adapter.removeOne(id, state)),
-    on(actions.deleteFailure, (state, { error }) => ({ ...state, loading: false, error })),
-  );
-}
+  })),
+  on(GenericActions.loadSuccess, (state, { data }) => ({
+    ...state,
+    entities: data,
+    loading: false,
+    loaded: true,
+    error: null,
+  })),
+  on(GenericActions.loadFailure, (state, { error }) => ({
+    ...state,
+    loading: false,
+    loaded: false,
+    error,
+  })),
+  on(GenericActions.createSuccess, (state, { entity }) => ({
+    ...state,
+    entities: [...state.entities, entity],
+  })),
+  on(GenericActions.updateSuccess, (state, { entity }) => ({
+    ...state,
+    entities: state.entities.map((e) => (e.id === entity.id ? entity : e)),
+  })),
+  on(GenericActions.deleteSuccess, (state, { id }) => ({
+    ...state,
+    entities: state.entities.filter((e) => e.id !== id),
+  }))
+);

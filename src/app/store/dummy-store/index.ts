@@ -1,14 +1,17 @@
-import { EntityAdapter, createEntityAdapter } from '@ngrx/entity';
-import { CrudActions } from './action';
-import { createCrudReducer } from './reducer';
+// src/app/store/index.ts
+import { ActionReducerMap } from '@ngrx/store';
+import { GenericState, genericReducer } from './reducer';
 
-// Example: User
-export interface User {
-  id: string;
-  name: string;
-  email: string;
+export interface AppState {
+  categories: GenericState<any>;
+  products: GenericState<any>;
+  students: GenericState<any>;
+  users: GenericState<any>;
 }
 
-export const userAdapter: EntityAdapter<User> = createEntityAdapter<User>();
-const userActions = new CrudActions<User>('User');
-export const userReducer = createCrudReducer(userActions, userAdapter);
+export const reducers: ActionReducerMap<AppState> = {
+  categories: genericReducer,
+  products: genericReducer,
+  students: genericReducer,
+  users: genericReducer,
+};
