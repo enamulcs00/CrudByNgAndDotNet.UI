@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   categories$?: Observable<Category[]>;
 
   private apiUrl = 'https://jsonplaceholder.typicode.com/posts'; // Dummy API
-  private entityName = 'categories';
+  private entityName = 'enamul';
   blogs$?: Observable<BlogPost[]>;
   constructor( private serv:StoreRepoService,private genericService: GenericService<Category>) {
 
