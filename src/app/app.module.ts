@@ -28,9 +28,7 @@ import { ApiService } from './shared/_services/api.service';
 import { HttpService } from './shared/_services/http.service';
 import { StoreRepoService } from './shared/_services/store-repo-service';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { genericReducer } from './store/dummy-store/reducer';
 import { GenericService } from './shared/_services/store.service';
-import { reducers } from './store/dummy-store';
 @NgModule({ declarations: [
         AppComponent,
         NavbarComponent,
@@ -57,7 +55,6 @@ import { reducers } from './store/dummy-store';
             preventDuplicates: true,
         }),
         StoreModule.forRoot(rootReducer),
-        StoreModule.forRoot(reducers),
         StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })],
          providers: [
             HttpService, ApiService, StoreRepoService,GenericService,
