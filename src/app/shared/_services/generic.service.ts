@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Observable, of, delay } from 'rxjs';
 import { BaseModel } from '../models/general';
-
 
 @Injectable({
   providedIn: 'root'
@@ -8,39 +8,34 @@ import { BaseModel } from '../models/general';
 export class GenericService<T extends BaseModel> {
   protected items: T[] = [];
 
-  // Simulated API delay
-  private delay(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
+  // Simulated API delay using RxJS
+  private simulateDelay<T>(data: T): Observable<T> {
+    return of(data).pipe(delay(300));
   }
 
-  async getAll(): Promise<T[]> {
-    await this.delay(500); // Simulate network delay
-    return this.items;
+  getAll(): Observable<T[]> {
+    return this.simulateDelay(this.items);
   }
 
-  async getById(id: string): Promise<T | undefined> {
-    await this.delay(300);
-    return this.items.find(item => item.id.toString() === id);
+  getById(id: string): Observable<T | undefined> {
+    return this.simulateDelay(this.items.find(item => item.id.toString() === id));
   }
 
-  async create(item: T): Promise<T> {
-    await this.delay(300);
+  create(item: T): Observable<T> {
     this.items.push(item);
-    return item;
+    return this.simulateDelay(item);
   }
 
-  async update(item: T): Promise<T> {
-    await this.delay(300);
+  update(item: T): Observable<T> {
     const index = this.items.findIndex(i => i.id === item.id);
     if (index !== -1) {
       this.items[index] = item;
     }
-    return item;
+    return this.simulateDelay(item);
   }
 
-  async delete(id: string): Promise<string> {
-    await this.delay(300);
+  delete(id: string): Observable<string> {
     this.items = this.items.filter(item => item.id.toString() !== id);
-    return id;
+    return this.simulateDelay(id);
   }
 }

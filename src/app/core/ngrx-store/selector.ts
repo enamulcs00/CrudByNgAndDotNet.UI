@@ -1,7 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { BaseModel } from 'src/app/shared/models/general';
 import { GenericState } from './generic.state';
-
+import { BaseModel } from 'src/app/shared/models/general';
 
 export function createGenericSelectors<T extends BaseModel>(featureName: string) {
   const getFeatureState = createFeatureSelector<GenericState<T>>(featureName);

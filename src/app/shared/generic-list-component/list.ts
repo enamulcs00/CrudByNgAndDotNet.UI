@@ -11,12 +11,12 @@ import { BaseModel } from '../models/general';
       <div *ngIf="loading">Loading...</div>
       <div *ngIf="error">{{ error }}</div>
       
-      <div *ngFor="let item of items || []" class="list-item">
+      <div *ngFor="let item of items" class="list-item" (click)="onSelect(item)">
         <ng-container *ngTemplateOutlet="itemTemplate; context: { $implicit: item }">
         </ng-container>
         <div class="actions">
-          <button (click)="onEdit(item)">Edit</button>
-          <button (click)="onDelete(item)">Delete</button>
+          <button (click)="onEdit(item); $event.stopPropagation()">Edit</button>
+          <button (click)="onDelete(item); $event.stopPropagation()">Delete</button>
         </div>
       </div>
     </div>
@@ -31,6 +31,7 @@ import { BaseModel } from '../models/general';
       align-items: center;
       padding: 0.5rem;
       border-bottom: 1px solid #eee;
+      cursor: pointer;
     }
     .actions {
       display: flex;
@@ -39,13 +40,14 @@ import { BaseModel } from '../models/general';
   `]
 })
 export class GenericListComponent<T extends BaseModel> {
-  @Input() items: T[] | null = [];
+  @Input() items: T[] = [];
   @Input() loading: boolean | null = false;
   @Input() error: string | null = null;
   @Input() itemTemplate!: TemplateRef<{ $implicit: T }>;
 
   @Output() edit = new EventEmitter<T>();
   @Output() delete = new EventEmitter<T>();
+  @Output() select = new EventEmitter<T>();
 
   onEdit(item: T): void {
     this.edit.emit(item);
@@ -53,5 +55,9 @@ export class GenericListComponent<T extends BaseModel> {
 
   onDelete(item: T): void {
     this.delete.emit(item);
+  }
+
+  onSelect(item: T): void {
+    this.select.emit(item);
   }
 }
