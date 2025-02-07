@@ -17,7 +17,7 @@
             </a>
             <ul class="dropdown-menu">
               <li *ngFor="let item of dropDownMenuItems;  let last=last"
-              ><a class="dropdown-item" [routerLink]="[item.link]">{{item.text}}</a>
+              ><a class="dropdown-item" [routerLink]="[item.link]" (click)="isClick(item)">{{item.text}}</a>
               <hr class="dropdown-divider" *ngIf="!last">
             </li>
             </ul>

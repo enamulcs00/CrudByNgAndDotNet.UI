@@ -12,7 +12,9 @@ import { AuthService } from 'src/app/features/auth/services/auth.service';
 export class NavbarComponent implements OnInit {
   user?: User;
   interView:string[] = ['Angular', '.Net Core']
-  dropDownMenuItems:dropDownMenuItems[] = [{text:'Categories', link:'/admin/categories'}, {text:'BlogPosts',link:'/admin/blogposts'}, {text:'Users',link:'/admin/users'}]
+  dropDownMenuItems:dropDownMenuItems[] = [{text:'Categories', link:'/admin/categories'}, {text:'BlogPosts',link:'/admin/blogposts'}, {text:'Users',link:'/admin/users'},
+    {text:'Posts',link:'/admin/posts'}
+  ]
   constructor(private authService: AuthService,
     private router: Router) {
   }
@@ -34,5 +36,8 @@ export class NavbarComponent implements OnInit {
     this.authService.logout();
     this.router.navigateByUrl('/account/login');
   }
+  isClick(item:any):void{
+console.log("item", item);
 
+  }
 }
