@@ -1,0 +1,29 @@
+<h1>Posts</h1>
+<ng-container *ngIf="posts$ | async as users">
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Body</th>
+            <th>Title</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let user of users">
+            <td>{{user.body}}</td>
+            <td>{{user.title}}</td>
+            <td style="white-space: nowrap">
+                <button  class="btn btn-sm btn-danger btn-delete-user" (click)="deletePost(user.id)">
+                    <!-- <span *ngIf="user.isRegularUser" class="spinner-border spinner-border-sm"></span> -->
+                    <span>Delete</span>
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="!users">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</ng-container>
