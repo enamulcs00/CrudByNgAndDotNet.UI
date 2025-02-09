@@ -3,6 +3,8 @@ import { Observable } from 'rxjs';
 import { BlogPost } from '../models/blog-post.model';
 import { ApiResponse } from 'src/app/shared/models/general';
 import { StoreRepoService } from 'src/app/shared/_services';
+import { blogPostActions } from 'src/app/core/ngrx-store';
+import { endPoints } from 'src/app/shared/endpoints';
 
 @Component({
     selector: 'app-blogpost-list',
@@ -14,13 +16,13 @@ export class BlogpostListComponent implements OnInit {
 
   blogPosts$?: Observable<BlogPost[]>;
 
-  constructor(private serv: StoreRepoService) {
+  constructor(private serv: StoreRepoService<BlogPost>) {
 
   }
 
   ngOnInit(): void {
     // get all blog posts from API
-    this.blogPosts$ = this.serv.getUserList();
+    this.blogPosts$ = this.serv.getAll(endPoints.blogPost.url,false  , blogPostActions ,'blogPost');
   }
 
 }

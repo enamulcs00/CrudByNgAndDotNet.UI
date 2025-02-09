@@ -11,6 +11,7 @@ export function createGenericReducer<T extends BaseModel>(actions: GenericAction
     on(actions.load, (state) => ({
       ...state,
       loading: true,
+      loaded:false,
       error: null
     })),
     
@@ -24,13 +25,15 @@ export function createGenericReducer<T extends BaseModel>(actions: GenericAction
         ...state,
         entities,
         ids: items.map(item => item.id.toString()),
-        loading: false
+        loading: false,
+        loaded:true
       };
     }),
     
     on(actions.loadFailure, (state, { error }) => ({
       ...state,
       loading: false,
+      loaded:false,
       error
     })),
     

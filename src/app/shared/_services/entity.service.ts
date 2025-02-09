@@ -33,8 +33,8 @@ export class StudentService extends GenericService<Student> {
 @Injectable({ providedIn: 'root' })
 export class UserService extends GenericService<User> {
   protected override items: User[] = [
-    { id: '1', username: 'john_doe', email: 'john@example.com', role: 'user' },
-    { id: '2', username: 'admin', email: 'admin@example.com', role: 'admin' },
-    { id: '3', username: 'jane_smith', email: 'jane@example.com', role: 'user' }
+    { id: '1', firstName: 'john_doe', email: 'john@example.com', role: 'user' },
+    { id: '2', firstName: 'admin', email: 'admin@example.com', role: 'admin' },
+    { id: '3', firstName: 'jane_smith', email: 'jane@example.com', role: 'user' }
   ];
 }
