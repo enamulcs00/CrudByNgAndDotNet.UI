@@ -48,6 +48,7 @@ export class CategoryListComponent implements OnInit {
   
   categories$: Observable<Category[]> = this.store.select(this.selectors.selectAll);
   loading$: Observable<boolean> = this.store.select(this.selectors.selectLoading);
+  loaded$: Observable<boolean> = this.store.select(this.selectors.selectLoaded);
   error$: Observable<string | null> = this.store.select(this.selectors.selectError);
   selectedCategory$: Observable<Category | null> = this.store.select(this.selectors.selectSelected);
 

@@ -18,7 +18,7 @@ export class CategoryListComponent implements OnInit {
   pageNumber = 1;
   pageSize = 20;
 
-  constructor(private categoryService: CategoryService , private _service:StoreRepoService) {
+  constructor(private categoryService: CategoryService , private _service:StoreRepoService<Category>) {
   }
 
   ngOnInit(): void {

@@ -4,7 +4,6 @@ import { BaseModel } from 'src/app/shared/models/general';
 
 export function createGenericSelectors<T extends BaseModel>(featureName: string) {
   const getFeatureState = createFeatureSelector<GenericState<T>>(featureName);
-
   const selectAll = createSelector(
     getFeatureState,
     state => state.ids.map(id => state.entities[id])
@@ -19,7 +18,10 @@ export function createGenericSelectors<T extends BaseModel>(featureName: string)
     getFeatureState,
     state => state.loading
   );
-
+  const selectLoaded = createSelector(
+    getFeatureState,
+    state => state.loaded
+  );
   const selectError = createSelector(
     getFeatureState,
     state => state.error
@@ -34,6 +36,7 @@ export function createGenericSelectors<T extends BaseModel>(featureName: string)
     selectAll,
     selectEntities,
     selectLoading,
+    selectLoaded,
     selectError,
     selectSelected
   };

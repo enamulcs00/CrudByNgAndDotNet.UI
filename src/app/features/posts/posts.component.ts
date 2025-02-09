@@ -17,7 +17,7 @@ posts$?: Observable<IPost[]>;
   private apiUrl = 'https://jsonplaceholder.typicode.com/posts'; // Dummy API
   private entityName = 'enamul';
 
-    constructor(private _service:StoreRepoService ,private genericService: GenericService<IPost>) {
+    constructor(private _service:StoreRepoService <IPost>,private genericService: GenericService<IPost>) {
   
     }
   

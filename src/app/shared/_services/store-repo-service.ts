@@ -40,15 +40,17 @@ import {
   PostListSuccessAction
 } from 'src/app/store/actions/post-action';
 import { BlogPost } from 'src/app/features/blog-post/models/blog-post.model';
-import { ApiResponse, IServiceParams } from '../models/general';
+import { ApiResponse, BaseModel, IServiceParams } from '../models/general';
 import { Category } from 'src/app/features/category/models/category.model';
 import { CategoryListErrorAction, CategoryListRequestAction, CategoryListSuccessAction } from 'src/app/store/actions/category-action';
 import { AccountService } from './account.service';
+import { GenericActions } from 'src/app/core/ngrx-store/action';
+import { createGenericSelectors } from 'src/app/core/ngrx-store/selector';
 
 
 @Injectable()
-export class StoreRepoService {
-  constructor(private store: Store<RootReducerState>, private apiService: ApiService,private usrSrv:AccountService) {
+export class StoreRepoService<T extends BaseModel> {
+  constructor(private store: Store<RootReducerState>, private apiService: ApiService<T>,private usrSrv:AccountService) {
   }
 
   getRegisterdUsers(force = false): Observable<User[]> {
@@ -88,25 +90,27 @@ export class StoreRepoService {
     return this.store.select(getCategories) as Observable<Category[]>;
     }
 
-  getUserList(force = false,): Observable<BlogPost[]> {
-    const loading$ = this.store.select(getUserLoading);
-    const loaded$ = this.store.select(getUserLoaded);
+  getAll(endPoint:string,force = false,action:GenericActions<T>,feature:string): Observable<T[]> {
+    const selector = createGenericSelectors<T>(feature);
+    const loading$ = this.store.select(selector.selectLoading);
+    const loaded$ = this.store.select(selector.selectLoaded);
     combineLatest([loaded$, loading$]).pipe(take(1)).subscribe((data) => {
+      console.log('loding respone', data);
+      
       if ((!data[0] && !data[1]) || force) {        
-        this.store.dispatch(new UserListRequestAction());
-        this.apiService.getAll().pipe(take(1)).subscribe({
-          next:(value:ApiResponse<BlogPost[]>)=> {
-            
-          this.store.dispatch(new UserListSuccessAction({data: value.data}));
-
-          },
-          error:() =>{
-            this.store.dispatch(new UserListErrorAction());
+        this.store.dispatch(action.load());
+        this.apiService.getAll(endPoint).pipe(take(1)).subscribe({
+          next:(value:ApiResponse<T[]>)=> {
+          this.store.dispatch(action.loadSuccess({ items: value.data }))},
+          error:(error) =>{
+            this.store.dispatch(action.loadFailure(
+             { error: error instanceof Error ? error.message : 'Failed to load data'}
+            ));
           }
         });
       }
     });
-    return this.store.select(getUsers) as any;
+    return this.store.select(selector.selectAll);
   }
 
   deleteUser(id: string) {

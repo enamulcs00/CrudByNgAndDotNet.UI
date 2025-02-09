@@ -9,13 +9,13 @@ import { Category } from 'src/app/features/category/models/category.model';
 import { HttpParams } from '@angular/common/http';
 
 @Injectable()
-export class ApiService {
+export class ApiService<T> {
   constructor(private httpService: HttpService) {
   }
 
-  getAll(): Observable<ApiResponse<BlogPost[]>> {
-    return this.httpService.get('/api/blogposts')
-      .pipe(map(data => data as ApiResponse<BlogPost[]>));
+  getAll(endPoint:string): Observable<ApiResponse<T[]>> {
+    return this.httpService.get(endPoint)
+      .pipe(map(data => data as ApiResponse<T[]>));
   }
   getAllCategories(obj:IServiceParams): Observable<ApiResponse<Category[]>> {
     let params = new HttpParams();

@@ -14,7 +14,7 @@ export class BlogDetailsComponent implements OnInit {
   objId: string | null = null;
   blogPost$? : Observable<BlogPost>;
 
-  constructor(private route: ActivatedRoute, private srv:StoreRepoService) {
+  constructor(private route: ActivatedRoute,) {
 
   }
   ngOnInit(): void {
@@ -26,7 +26,7 @@ export class BlogDetailsComponent implements OnInit {
     });
    // Fetch blog details by object id
     if (this.objId) {      
-      this.blogPost$ = this.srv.getUserById(this.objId);
+      // this.blogPost$ = this.srv.getUserById(this.objId);
     }
   }
 }

@@ -50,9 +50,14 @@ export interface Student extends BaseModel {
   grade: number;
 }
 
-export interface User extends BaseModel {
-  username: string;
-  email: string;
-  role: string;
-}
 
+
+export interface User extends BaseModel {
+  firstName?: string
+  lastName?: string
+  email?: string
+  phoneNumber?:string
+  address?: string
+  isRegularUser?:boolean
+  role?: string
+}
