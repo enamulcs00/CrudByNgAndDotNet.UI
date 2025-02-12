@@ -12,21 +12,14 @@ import {
   getRegisteredUserLoading,
   getRegisteredUsers,
   getUserById,
-  getUserLoaded,
-  getUserLoading,
-  getUsers,
   RootReducerState
 } from 'src/app/store/reducers';
-import {combineLatest, Observable} from 'rxjs';
+import {combineLatest, Observable, of} from 'rxjs';
 import {
   RegisteredUserListErrorAction,
   RegisteredUserListRequestAction,
   RegisteredUserListSuccessAction,
   UserAddAction,
-  UserDeleteAction,
-  UserListErrorAction,
-  UserListRequestAction,
-  UserListSuccessAction,
   UserUpdateAction
 } from 'src/app/store/actions/user-action';
 import {ApiService} from './api.service';
@@ -40,7 +33,7 @@ import {
   PostListSuccessAction
 } from 'src/app/store/actions/post-action';
 import { BlogPost } from 'src/app/features/blog-post/models/blog-post.model';
-import { ApiResponse, BaseModel, IServiceParams } from '../models/general';
+import { ApiResponse, BaseModel, IGetApi, IPostApi,  } from '../models/general';
 import { Category } from 'src/app/features/category/models/category.model';
 import { CategoryListErrorAction, CategoryListRequestAction, CategoryListSuccessAction } from 'src/app/store/actions/category-action';
 import { AccountService } from './account.service';
@@ -71,11 +64,11 @@ export class StoreRepoService<T extends BaseModel> {
     });
     return this.store.select(getRegisteredUsers) as Observable<User[]>;
   }
-   getAllCategories(param:IServiceParams , force = false): Observable<Category[]> {
+   getAllCategories(param:IGetApi<T>): Observable<Category[]> {
     const loading$ = this.store.select(getCategoryLoading);
     const loaded$ = this.store.select(getCategoryLoaded);
     combineLatest([loaded$, loading$]).pipe(take(1)).subscribe((data) => {
-      if ((!data[0] && !data[1]) || force) {        
+      if ((!data[0] && !data[1]) || param.force) {        
         this.store.dispatch(new CategoryListRequestAction());
         this.apiService.getAllCategories(param).pipe(take(1)).subscribe({
           next:(value:ApiResponse<Category[]>)=> {
@@ -90,20 +83,18 @@ export class StoreRepoService<T extends BaseModel> {
     return this.store.select(getCategories) as Observable<Category[]>;
     }
 
-  getAll(endPoint:string,force = false,action:GenericActions<T>,feature:string): Observable<T[]> {
-    const selector = createGenericSelectors<T>(feature);
+  getAll(param:IGetApi<T>): Observable<T[]> {
+    const selector = createGenericSelectors<T>(param.featureName);
     const loading$ = this.store.select(selector.selectLoading);
     const loaded$ = this.store.select(selector.selectLoaded);
-    combineLatest([loaded$, loading$]).pipe(take(1)).subscribe((data) => {
-      console.log('loding respone', data);
-      
-      if ((!data[0] && !data[1]) || force) {        
-        this.store.dispatch(action.load());
-        this.apiService.getAll(endPoint).pipe(take(1)).subscribe({
+    combineLatest([loaded$, loading$]).pipe(take(1)).subscribe((data) => {      
+      if ((!data[0] && !data[1]) || param.force) {        
+        this.store.dispatch(param.actionName.load());
+        this.apiService.getAll(param.endPoint).pipe(take(1)).subscribe({
           next:(value:ApiResponse<T[]>)=> {
-          this.store.dispatch(action.loadSuccess({ items: value.data }))},
+          this.store.dispatch(param.actionName.loadSuccess({ items: value.data }))},
           error:(error) =>{
-            this.store.dispatch(action.loadFailure(
+            this.store.dispatch(param.actionName.loadFailure(
              { error: error instanceof Error ? error.message : 'Failed to load data'}
             ));
           }
@@ -113,9 +104,9 @@ export class StoreRepoService<T extends BaseModel> {
     return this.store.select(selector.selectAll);
   }
 
-  deleteUser(id: string) {
+  deleteUser(id: string,action:GenericActions<T>) {
     // first we will call actual delete api
-    this.store.dispatch(new UserDeleteAction({id}));
+    this.store.dispatch(action.deleteSuccess({ id }));
   }
 
   updateUser(data: User) {
@@ -123,9 +114,22 @@ export class StoreRepoService<T extends BaseModel> {
     this.store.dispatch(new UserUpdateAction({data}));
   }
 
-  addUser(data: BlogPost) {
-    // first call api to add a user and then update it in store
-    this.store.dispatch(new UserAddAction({data}));
+  add(param:IPostApi<T>):Observable<T> {
+    const selector = createGenericSelectors<T>(param.featureName);
+    let id = ''
+    this.apiService.createRecord(param.endPoint , param?.payload).pipe(take(1)).subscribe({
+      next:(value:ApiResponse<T>)=> {
+        id = value.data.id
+      // add router logic here if you want
+        
+      this.store.dispatch(param.actionName.createSuccess({ item: value.data }))},
+      error:(error) =>{
+        this.store.dispatch(param.actionName.createFailure(
+         { error: error instanceof Error ? error.message : 'Failed to load data'}
+        ));
+      }
+    });
+    return this.store.select(selector.selectById(id)) as Observable<T>;
   }
 
   getUserById(id: string, force:boolean = false):Observable<BlogPost> {

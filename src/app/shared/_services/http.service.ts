@@ -14,5 +14,8 @@ export class HttpService {
     return this.httpClient
       .get(this.baseUrl + url,obj);
   }
-
+post(url:string , obj?:object):Observable<any>{
+  return this.httpClient
+      .post(this.baseUrl + url,obj);
+}
 }

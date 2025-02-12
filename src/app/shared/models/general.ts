@@ -1,3 +1,5 @@
+import { GenericActions } from "src/app/core/ngrx-store/action";
+
 export interface ApiResponse<T> {
   message: string;      // A message describing the result of the API call
   status: boolean;       // A string indicating the status (e.g., "success", "failure")
@@ -6,9 +8,11 @@ export interface ApiResponse<T> {
   errorDetails?: object;   // Additional error details (optional)
 }
 
-export interface IServiceParams {
-actionName?:string;
-selectorName?:string;
+export interface IGetApi<T extends BaseModel> {
+endPoint:string;
+force:boolean;
+actionName:GenericActions<T>;
+featureName:string;
 query?: string;
 sortBy?: string;
 sortDirection?: string;
@@ -16,12 +20,14 @@ pageNumber?: number;
 pageSize?: number;
 }
 
-export interface GenericState<T> {
-  entities: T[];
-  loaded: boolean;
-  loading: boolean;
-  error: string | null;
-}
+export interface IPostApi<T extends BaseModel> {
+  endPoint:string;
+  force:boolean;
+  actionName:GenericActions<T>;
+  featureName:string;
+  payload:T
+  }
+
 export interface IPost {
   body:string;
   id:string
@@ -30,12 +36,13 @@ export interface IPost {
 }
 
 export interface BaseModel {
-  id: string | number;
+  id: string ;
 }
 
 export interface Category extends BaseModel {
+  id: string;
   name: string;
-  description: string;
+  urlHandle: string;
 }
 
 export interface Product extends BaseModel {

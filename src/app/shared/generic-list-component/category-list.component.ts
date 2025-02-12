@@ -22,7 +22,7 @@ import { GenericListComponent } from './list';
     <div *ngIf="selectedCategory$ | async as category" class="mb-4 p-4 bg-gray-100 rounded">
       <h3>Selected Category:</h3>
       <p>Name: {{ category.name }}</p>
-      <p>Description: {{ category.description }}</p>
+      <p>Description: {{ category.urlHandle }}</p>
     </div>
 
     <app-generic-list
@@ -77,7 +77,7 @@ export class CategoryListComponent implements OnInit {
     const newCategory: Category = {
       id: crypto.randomUUID(),
       name: 'New Category',
-      description: 'New Category Description'
+      urlHandle: 'New Category Description'
     };
 
     this.categoryService.create(newCategory).subscribe({

@@ -25,7 +25,7 @@
             <td>{{user.address}}</td>
             <td style="white-space: nowrap">
                 <a routerLink="edit/{{user.id}}" class="btn btn-sm btn-primary me-1">Edit</a>
-                <button  class="btn btn-sm btn-danger btn-delete-user" [disabled]="user.isRegularUser">
+                <button  class="btn btn-sm btn-danger btn-delete-user"  (click)="deleteUser(user.id)">
                     <!-- <span *ngIf="user.isRegularUser" class="spinner-border spinner-border-sm"></span> -->
                     <span *ngIf="user.isRegularUser">Delete</span>
                 </button>

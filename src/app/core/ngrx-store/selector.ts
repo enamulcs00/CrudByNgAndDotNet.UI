@@ -26,7 +26,10 @@ export function createGenericSelectors<T extends BaseModel>(featureName: string)
     getFeatureState,
     state => state.error
   );
-
+  const selectById = (id: string) => createSelector(
+    selectEntities,
+    entities => entities[id]
+  );
   const selectSelected = createSelector(
     getFeatureState,
     state => state.selectedId ? state.entities[state.selectedId] : null
@@ -37,6 +40,7 @@ export function createGenericSelectors<T extends BaseModel>(featureName: string)
     selectEntities,
     selectLoading,
     selectLoaded,
+    selectById,
     selectError,
     selectSelected
   };

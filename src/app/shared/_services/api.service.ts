@@ -3,13 +3,13 @@ import {HttpService} from './http.service';
 import {map} from 'rxjs/operators';
 import {User} from '../models/user';
 import {Observable} from 'rxjs';
-import { ApiResponse, IServiceParams } from '../models/general';
+import { ApiResponse, BaseModel, IGetApi,  } from '../models/general';
 import { BlogPost } from 'src/app/features/blog-post/models/blog-post.model';
 import { Category } from 'src/app/features/category/models/category.model';
 import { HttpParams } from '@angular/common/http';
 
 @Injectable()
-export class ApiService<T> {
+export class ApiService<T extends BaseModel> {
   constructor(private httpService: HttpService) {
   }
 
@@ -17,7 +17,10 @@ export class ApiService<T> {
     return this.httpService.get(endPoint)
       .pipe(map(data => data as ApiResponse<T[]>));
   }
-  getAllCategories(obj:IServiceParams): Observable<ApiResponse<Category[]>> {
+  createRecord(endPoint:string,obj:T): Observable<ApiResponse<T>> {
+    return this.httpService.post(endPoint,obj);
+  }
+  getAllCategories(obj:IGetApi<T>): Observable<ApiResponse<Category[]>> {
     let params = new HttpParams();
 
     if (obj.query) {

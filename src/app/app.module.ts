@@ -28,7 +28,6 @@ import { ApiService } from './shared/_services/api.service';
 import { HttpService } from './shared/_services/http.service';
 import { StoreRepoService } from './shared/_services/store-repo-service';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { GenericService } from './shared/_services/store.service';
 import { reducers } from './core/ngrx-store';
 @NgModule({ declarations: [
         AppComponent,
@@ -58,7 +57,7 @@ import { reducers } from './core/ngrx-store';
         StoreModule.forRoot(reducers),
         StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })],
          providers: [
-            HttpService, ApiService, StoreRepoService,GenericService,
+            HttpService, ApiService, StoreRepoService,
 
         {
             provide: HTTP_INTERCEPTORS,

@@ -54,6 +54,7 @@ const routes: Routes = [
     component: EditBlogpostComponent,
     canActivate: [authGuard]
   },
+
    // otherwise redirect to home
    { path: '**', redirectTo: '' }
 ];
