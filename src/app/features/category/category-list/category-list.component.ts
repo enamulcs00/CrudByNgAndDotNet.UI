@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../services/category.service';
 import { Category } from '../models/category.model';
 import { Observable } from 'rxjs';
-import { ApiResponse, IServiceParams } from 'src/app/shared/models/general';
+import { ApiResponse, IGetApi,  } from 'src/app/shared/models/general';
 import { StoreRepoService } from 'src/app/shared/_services';
+import { endPoints } from 'src/app/shared/endpoints';
+import { categoryActions } from 'src/app/core/ngrx-store';
 
 @Component({
     selector: 'app-category-list',
@@ -22,18 +24,25 @@ export class CategoryListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.categoryService.getCategoryCount()
-      .subscribe({
-        next: (value) => {
-          this.totalCount = value.data;
-          this.list = new Array(Math.ceil(value.data / this.pageSize))
-          console.log('list ', this.list);
-          const obj:IServiceParams = {};
-          obj.pageNumber = this.pageNumber
-          obj.pageSize = this.pageSize
-          this.categories$ = this._service.getAllCategories(obj);
+    // this.categoryService.getCategoryCount()
+    //   .subscribe({
+    //     next: (value) => {
+    //       this.totalCount = value.data;
+    //       this.list = new Array(Math.ceil(value.data / this.pageSize))
+    //       console.log('list ', this.list);
+    //       const obj:IServiceParams = {};
+    //       obj.pageNumber = this.pageNumber
+    //       obj.pageSize = this.pageSize
+    //     }
+    //   })
+     let param:IGetApi<Category> = {
+          endPoint:endPoints.category.url,
+          actionName:categoryActions,
+          force:false,
+          featureName:'categories'
         }
-      })
+    this.categories$ = this._service.getAll(param);
+
   }
 
   onSearch(query: string) {

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BlogPost } from '../models/blog-post.model';
-import { ApiResponse } from 'src/app/shared/models/general';
+import { ApiResponse, IGetApi } from 'src/app/shared/models/general';
 import { StoreRepoService } from 'src/app/shared/_services';
 import { blogPostActions } from 'src/app/core/ngrx-store';
 import { endPoints } from 'src/app/shared/endpoints';
@@ -22,7 +22,13 @@ export class BlogpostListComponent implements OnInit {
 
   ngOnInit(): void {
     // get all blog posts from API
-    this.blogPosts$ = this.serv.getAll(endPoints.blogPost.url,false  , blogPostActions ,'blogPost');
+     let param:IGetApi<BlogPost> = {
+              endPoint:endPoints.blogPost.url,
+              actionName:blogPostActions,
+              force:false,
+              featureName:'blogPost'
+            }
+    this.blogPosts$ = this.serv.getAll(param);
   }
 
 }
