@@ -20,12 +20,13 @@ pageNumber?: number;
 pageSize?: number;
 }
 
-export interface IPostApi<T extends BaseModel> {
+export interface IPayloadApi<T extends BaseModel> {
   endPoint:string;
   force:boolean;
   actionName:GenericActions<T>;
   featureName:string;
-  payload:T
+  payload:T;
+  path:string;
   }
 
 export interface IPost {

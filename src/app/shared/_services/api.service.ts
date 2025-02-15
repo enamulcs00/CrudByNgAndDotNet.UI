@@ -20,6 +20,12 @@ export class ApiService<T extends BaseModel> {
   createRecord(endPoint:string,obj:T): Observable<ApiResponse<T>> {
     return this.httpService.post(endPoint,obj);
   }
+  updateRecord(endPoint:string,obj:T): Observable<ApiResponse<T>> {
+    return this.httpService.put(endPoint,obj);
+  }
+  deleteRecord(endPoint:string): Observable<ApiResponse<T>> {
+    return this.httpService.delete(endPoint);
+  }
   getAllCategories(obj:IGetApi<T>): Observable<ApiResponse<Category[]>> {
     let params = new HttpParams();
 
@@ -47,9 +53,9 @@ export class ApiService<T extends BaseModel> {
     })
     .pipe(map(data=>data as ApiResponse<Category[]>));
   }
-  getUser(id: string): Observable<ApiResponse<BlogPost>> {
-    return this.httpService.get('/api/blogposts/' + id)
-    .pipe(map(data => data as ApiResponse<BlogPost>));
+  getById(id: string,endPoint:string): Observable<ApiResponse<T>> {
+    return this.httpService.get(endPoint + id)
+    .pipe(map(data => data as ApiResponse<T>));
   }
 
   getAllPost(): Observable<any[]> {

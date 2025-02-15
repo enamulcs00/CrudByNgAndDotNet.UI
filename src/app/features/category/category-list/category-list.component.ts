@@ -4,7 +4,7 @@ import { Category } from '../models/category.model';
 import { Observable } from 'rxjs';
 import { ApiResponse, IGetApi,  } from 'src/app/shared/models/general';
 import { StoreRepoService } from 'src/app/shared/_services';
-import { endPoints } from 'src/app/shared/endpoints';
+import { endPoints } from 'src/app/shared/routes/endpoints';
 import { categoryActions } from 'src/app/core/ngrx-store';
 
 @Component({
@@ -39,7 +39,7 @@ export class CategoryListComponent implements OnInit {
           endPoint:endPoints.category.url,
           actionName:categoryActions,
           force:false,
-          featureName:'categories'
+          featureName:'categories',
         }
     this.categories$ = this._service.getAll(param);
 

@@ -3,7 +3,7 @@ import { BlogPost } from '../../blog-post/models/blog-post.model';
 import { StoreRepoService } from 'src/app/shared/_services/store-repo-service';
 import { Observable, take } from 'rxjs';
 import { blogPostActions } from 'src/app/core/ngrx-store';
-import { endPoints } from 'src/app/shared/endpoints';
+import { endPoints } from 'src/app/shared/routes/endpoints';
 import { IGetApi } from 'src/app/shared/models/general';
 
 @Component({
@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
                     endPoint:endPoints.blogPost.url,
                     actionName:blogPostActions,
                     force:false,
-                    featureName:'blogPost'
+                    featureName:'blogPost',
                   }
     this.blogs$ = this.serv.getAll(param);
     this.blogs$.pipe(take(1)).subscribe(res=>{

@@ -4,7 +4,7 @@ import { BlogPost } from '../models/blog-post.model';
 import { ApiResponse, IGetApi } from 'src/app/shared/models/general';
 import { StoreRepoService } from 'src/app/shared/_services';
 import { blogPostActions } from 'src/app/core/ngrx-store';
-import { endPoints } from 'src/app/shared/endpoints';
+import { endPoints } from 'src/app/shared/routes/endpoints';
 
 @Component({
     selector: 'app-blogpost-list',
@@ -26,7 +26,7 @@ export class BlogpostListComponent implements OnInit {
               endPoint:endPoints.blogPost.url,
               actionName:blogPostActions,
               force:false,
-              featureName:'blogPost'
+              featureName:'blogPost',
             }
     this.blogPosts$ = this.serv.getAll(param);
   }

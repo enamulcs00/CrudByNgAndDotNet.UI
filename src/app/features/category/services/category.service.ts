@@ -46,8 +46,8 @@ export class CategoryService {
     });
   }
 
-  getCategoryById(id: string): Observable<Category> {
-    return this.http.get<Category>(`${environment.apiBaseUrl}/api/categories/${id}`);
+  getCategoryById(id: string): Observable<ApiResponse<Category>> {
+    return this.http.get<ApiResponse<Category>>(`${environment.apiBaseUrl}/api/categories/${id}`);
   }
 
   getCategoryCount(): Observable<ApiResponse<number>> {
