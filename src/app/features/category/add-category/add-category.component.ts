@@ -1,12 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component} from '@angular/core';
 import { AddCategoryRequest } from '../models/add-category-request.model';
-import { CategoryService } from '../services/category.service';
-import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
 import { StoreRepoService } from 'src/app/shared/_services';
-import { endPoints } from 'src/app/shared/endpoints';
-import { IPostApi } from 'src/app/shared/models/general';
+import { endPoints } from 'src/app/shared/routes/endpoints';
+import { IPayloadApi } from 'src/app/shared/models/general';
 import { categoryActions } from 'src/app/core/ngrx-store';
+import { URLs } from 'src/app/shared/routes/URLs';
 
 @Component({
     selector: 'app-add-category',
@@ -14,43 +12,24 @@ import { categoryActions } from 'src/app/core/ngrx-store';
     styleUrls: ['./add-category.component.css'],
     standalone: false
 })
-export class AddCategoryComponent implements OnDestroy , OnInit{
-
+export class AddCategoryComponent {
   model: AddCategoryRequest;
-  private addCategorySubscribtion?: Subscription;
-
-  constructor(private categoryService: CategoryService,private store:StoreRepoService<AddCategoryRequest>,
-    private router: Router) {
+  constructor(private store:StoreRepoService<AddCategoryRequest>) {
     this.model = {
       name: '',
       urlHandle: '',
       id:''
     };
   }
-
-ngOnInit(): void {
-  
-}
   onFormSubmit() {
-    let param:IPostApi<AddCategoryRequest> = {
+    let param:IPayloadApi<AddCategoryRequest> = {
       payload:this.model,
       endPoint:endPoints.category.url,
       actionName:categoryActions,
       force:false,
-      featureName:'categories'
+      featureName:'categories',
+      path:URLs.categoryList
     }
-    this.addCategorySubscribtion = this.store.add(param)
-    .subscribe({
-      next: (response) => {
-        console.log('res', response);
-        
-        this.router.navigateByUrl('/admin/categories');
-      }
-    })
+    this.store.add(param);
   }
-
-  ngOnDestroy(): void {
-    this.addCategorySubscribtion?.unsubscribe();
-  }
-
 }

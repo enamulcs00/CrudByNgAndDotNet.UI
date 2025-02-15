@@ -14,7 +14,7 @@ import {
   getUserById,
   RootReducerState
 } from 'src/app/store/reducers';
-import {combineLatest, Observable, of} from 'rxjs';
+import {combineLatest, Observable} from 'rxjs';
 import {
   RegisteredUserListErrorAction,
   RegisteredUserListRequestAction,
@@ -33,17 +33,18 @@ import {
   PostListSuccessAction
 } from 'src/app/store/actions/post-action';
 import { BlogPost } from 'src/app/features/blog-post/models/blog-post.model';
-import { ApiResponse, BaseModel, IGetApi, IPostApi,  } from '../models/general';
+import { ApiResponse, BaseModel, IGetApi, IPayloadApi,  } from '../models/general';
 import { Category } from 'src/app/features/category/models/category.model';
 import { CategoryListErrorAction, CategoryListRequestAction, CategoryListSuccessAction } from 'src/app/store/actions/category-action';
 import { AccountService } from './account.service';
 import { GenericActions } from 'src/app/core/ngrx-store/action';
 import { createGenericSelectors } from 'src/app/core/ngrx-store/selector';
+import { Router } from '@angular/router';
 
 
 @Injectable()
 export class StoreRepoService<T extends BaseModel> {
-  constructor(private store: Store<RootReducerState>, private apiService: ApiService<T>,private usrSrv:AccountService) {
+  constructor(private store: Store<RootReducerState>, private apiService: ApiService<T>,private usrSrv:AccountService, private router:Router ) {
   }
 
   getRegisterdUsers(force = false): Observable<User[]> {
@@ -104,42 +105,60 @@ export class StoreRepoService<T extends BaseModel> {
     return this.store.select(selector.selectAll);
   }
 
-  deleteUser(id: string,action:GenericActions<T>) {
+  delete(id: string,action:GenericActions<T>, endPoint:string, path?:string) {
     // first we will call actual delete api
-    this.store.dispatch(action.deleteSuccess({ id }));
+    this.apiService.deleteRecord(endPoint + '/'+ id).subscribe({
+      next:()=> {
+        this.store.dispatch(action.deleteSuccess({ id }));
+        if(path){
+      this.router.navigateByUrl(path);
+        }
+    },
+      error:(error) =>{
+        this.store.dispatch(action.deleteFailure(
+         { error: error instanceof Error ? error.message : 'Failed to load data'}
+        ));
+      }
+    })
   }
 
-  updateUser(data: User) {
-// first send details to actual api
-    this.store.dispatch(new UserUpdateAction({data}));
-  }
-
-  add(param:IPostApi<T>):Observable<T> {
-    const selector = createGenericSelectors<T>(param.featureName);
-    let id = ''
-    this.apiService.createRecord(param.endPoint , param?.payload).pipe(take(1)).subscribe({
+  update(param:IPayloadApi<T> , id?:string) {
+    this.apiService.updateRecord(param.endPoint + "/" + id , param.payload).pipe(take(1)).subscribe({
       next:(value:ApiResponse<T>)=> {
-        id = value.data.id
-      // add router logic here if you want
-        
-      this.store.dispatch(param.actionName.createSuccess({ item: value.data }))},
+      this.store.dispatch(param.actionName.updateSuccess({ item: value.data }));
+      this.router.navigateByUrl(param.path);
+    },
+      error:(error) =>{
+        this.store.dispatch(param.actionName.updateFailure(
+         { error: error instanceof Error ? error.message : 'Failed to load data'}
+        ));
+      }
+    });
+  }
+
+  add(param:IPayloadApi<T>):void {
+    this.apiService.createRecord(param.endPoint , param.payload).pipe(take(1)).subscribe({
+      next:(value:ApiResponse<T>)=> {
+      this.store.dispatch(param.actionName.createSuccess({ item: value.data }));
+      this.router.navigateByUrl(param.path);
+    },
       error:(error) =>{
         this.store.dispatch(param.actionName.createFailure(
          { error: error instanceof Error ? error.message : 'Failed to load data'}
         ));
       }
     });
-    return this.store.select(selector.selectById(id)) as Observable<T>;
   }
 
-  getUserById(id: string, force:boolean = false):Observable<BlogPost> {
-    // get user from reducer if exist otherwise from api
-    const user$ = this.store.select(state => getUserById(state, id));
+  getRecordById(param:IGetApi<T>, id:string):Observable<T> {
+    const selector = createGenericSelectors<T>(param.featureName);
+   // get user from reducer if exist otherwise from api
+    const user$ = this.store.select(selector.selectById(id));
     user$.pipe(take(1)).subscribe(res => {
-      if (force || !res) {
-        return this.apiService.getUser(id).pipe(take(1)).subscribe({
-          next:(data:ApiResponse<BlogPost>)=>{
-          this.store.dispatch(new UserAddAction({data:data.data}));
+      if (param.force || !res) {
+        return this.apiService.getById(id , param.endPoint).pipe(take(1)).subscribe({
+          next:(data:ApiResponse<T>)=>{
+            this.store.dispatch(param.actionName.createSuccess({ item: data.data }));
           }
         });
       }

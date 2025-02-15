@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/features/auth/services/auth.service';
 })
 export class NavbarComponent implements OnInit {
   user?: User;
+  img:string = "assets/images/name.png"
   interView:string[] = ['Angular', '.Net Core']
   dropDownMenuItems:dropDownMenuItems[] = [{text:'Categories', link:'/admin/categories'}, {text:'BlogPosts',link:'/admin/blogposts'}, {text:'Users',link:'/admin/users'},
     {text:'Posts',link:'/admin/posts'}

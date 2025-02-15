@@ -1,13 +1,12 @@
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
-import { Store } from '@ngrx/store';
 
 @Injectable()
 export class HttpService {
   private baseUrl = 'https://localhost:7226';
 
-  constructor(private httpClient: HttpClient,  private store: Store) {
+  constructor(private httpClient: HttpClient) {
   }
 
   get(url: string,obj?:object): Observable<any> {
@@ -17,5 +16,13 @@ export class HttpService {
 post(url:string , obj?:object):Observable<any>{
   return this.httpClient
       .post(this.baseUrl + url,obj);
+}
+put(url:string , obj?:object):Observable<any>{
+  return this.httpClient
+      .put(this.baseUrl + url,obj);
+}
+delete(url:string , obj?:object):Observable<any>{
+  return this.httpClient
+      .delete(this.baseUrl + url,obj);
 }
 }
