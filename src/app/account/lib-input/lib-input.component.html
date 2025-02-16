@@ -1,0 +1,22 @@
+<mat-form-field [appearance]="appearance" class="full-width">
+    <mat-label>{{label}}</mat-label>
+    <input matInput [placeholder]="placeholder"
+    [formControlName]="formControlName"
+    [type]="!hide() ? typeChange : fieldType"
+    [attr.aria-invalid]="isFormInvalid"
+    >
+    <button *ngIf="fieldType === 'password'"
+    mat-icon-button
+    matSuffix
+    (click)="clickEvent($event)"
+    [attr.aria-label]="'Hide password'"
+    [attr.aria-pressed]="hide()"
+  >
+    <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+  </button>
+  @if (formField.errors) {
+    <mat-error>{{getErrorMessage(formField) }}</mat-error>
+  }
+    <mat-hint *ngIf="false">Hint</mat-hint>
+  </mat-form-field>
+ 
