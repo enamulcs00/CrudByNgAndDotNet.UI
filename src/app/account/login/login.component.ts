@@ -9,7 +9,8 @@ import { ILoggedInUser } from 'src/app/features/auth/models/login-response.model
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css'],
-    standalone: false
+    standalone: false,
+  
 })
 export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
@@ -22,7 +23,7 @@ export class LoginComponent implements OnInit {
   }
   ngOnInit() {
     this.loginForm = this.fb.group({
-        email: ['', Validators.required],
+        email: ['', [Validators.required,Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/)]],
         password: ['', Validators.required]
     });    
 }
@@ -30,6 +31,8 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
     // stop here if form is invalid
     if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      this.loginForm.updateValueAndValidity();
         return;
     }
 

@@ -3,18 +3,27 @@
   <div class="card-body">
       <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
           <div class="mb-3">
-              <label class="form-label">Email</label>
-              <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && getControls.email.errors }" />
-              <div *ngIf="submitted && getControls.email.errors" class="invalid-feedback">
-                  <div *ngIf="getControls.email.errors.required">Email is required</div>
-              </div>
+           <lib-input
+           appearance="outline"
+           label="Email"
+           [submitted]="submitted"
+           [formField]="loginForm.get('email')!"
+           formControlName="email"
+           fieldType="email"
+           
+           >
+           </lib-input>
           </div>
           <div class="mb-3">
-              <label class="form-label">Password</label>
-              <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && getControls.password.errors }" />
-              <div *ngIf="submitted && getControls.password.errors" class="invalid-feedback">
-                  <div *ngIf="getControls.password.errors.required">Password is required</div>
-              </div>
+            <lib-input
+            appearance="outline"
+            label="Password"
+            [submitted]="submitted"
+            [formField]="loginForm.get('password')!"
+            formControlName="password"
+            fieldType="password"
+            >
+            </lib-input>
           </div>
           <div>
               <button [disabled]="loading" class="btn btn-primary">

@@ -29,6 +29,7 @@ import { HttpService } from './shared/_services/http.service';
 import { StoreRepoService } from './shared/_services/store-repo-service';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers } from './core/ngrx-store';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 @NgModule({ declarations: [
         AppComponent,
         NavbarComponent,
@@ -70,6 +71,7 @@ import { reducers } from './core/ngrx-store';
             useClass: ErrorHandlerInterceptor,
             multi: true
         },
-        provideHttpClient(withInterceptorsFromDi())
+        provideHttpClient(withInterceptorsFromDi()),
+        provideAnimationsAsync()
     ] })
 export class AppModule { }
