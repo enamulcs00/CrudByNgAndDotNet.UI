@@ -44,9 +44,7 @@ export class EditCategoryComponent implements OnInit, OnDestroy {
                   }
           this.repo.getRecordById( param,this.id)
           .subscribe({
-            next: (response) => {
-              console.log('response', response);
-              
+            next: (response) => {              
               this.category = response;
               this.categoryForm?.patchValue(response);
             }

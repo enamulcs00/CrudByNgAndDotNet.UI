@@ -7,6 +7,7 @@ export interface GenericState<T extends BaseModel> {
   loaded: boolean;
   error: string | null;
   selectedId: string | null;
+  searchTerm: string;
 }
 
 export const initialGenericState = {
@@ -16,4 +17,5 @@ export const initialGenericState = {
   loaded:false,
   error: null,
   selectedId: null,
+  searchTerm: '',
 };

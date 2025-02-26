@@ -1,5 +1,5 @@
 import { GenericActions } from "src/app/core/ngrx-store/action";
-
+export const emailRegex: string = '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$';
 export interface ApiResponse<T> {
   message: string;      // A message describing the result of the API call
   status: boolean;       // A string indicating the status (e.g., "success", "failure")

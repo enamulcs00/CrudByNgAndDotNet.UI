@@ -25,10 +25,6 @@ export class HomeComponent implements OnInit {
                     featureName:'blogPost',
                   }
     this.blogs$ = this.serv.getAll(param);
-    this.blogs$.pipe(take(1)).subscribe(res=>{
-      console.log("RESSSS", res);
-      
-    })
   }
   
 }

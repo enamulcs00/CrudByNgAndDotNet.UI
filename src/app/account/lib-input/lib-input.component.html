@@ -1,16 +1,18 @@
-<mat-form-field [appearance]="appearance" class="full-width">
+<ng-container [ngSwitch]="inputBox">
+  <mat-form-field [appearance]="appearance" class="full-width" *ngSwitchCase="'input'">
     <mat-label>{{label}}</mat-label>
     <input matInput [placeholder]="placeholder"
     [formControlName]="formControlName"
     [type]="!hide() ? typeChange : fieldType"
     [attr.aria-invalid]="isFormInvalid"
+    [spellcheck]="true"
     >
     <button *ngIf="fieldType === 'password'"
     mat-icon-button
     matSuffix
     (click)="clickEvent($event)"
     [attr.aria-label]="'Hide password'"
-    [attr.aria-pressed]="hide()"
+    [attr.aria-pressed]="hide()" type="button"
   >
     <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
   </button>
@@ -19,4 +21,27 @@
   }
     <mat-hint *ngIf="false">Hint</mat-hint>
   </mat-form-field>
+  <mat-form-field [appearance]="appearance" class="full-width" *ngSwitchCase="'textarea'">
+    <mat-label>{{label}}</mat-label>
+    <textarea matInput [placeholder]="placeholder"
+    [formControlName]="formControlName"
+    [attr.aria-invalid]="isFormInvalid"
+    [cdkTextareaAutosize]="true"
+    [cdkAutosizeMaxRows]="maxCharLength"
+    [rows]="textAreaRows"
+    [spellcheck]="true"
+    [maxLength]="maxCharLength"
+    [attr.maxlength]="maxCharLength"
+    #ref
+    ></textarea>
+  @if (formField.errors) {
+    <mat-error>{{getErrorMessage(formField) }}</mat-error>
+  }
+    <mat-hint align="start" *ngIf="false">Hint</mat-hint>
+    <mat-hint align="end" *ngIf="enableCharCount">{{maxCharLength - ref.value.length + " " +
+      "Characters Remaining"
+      }}</mat-hint>
+  </mat-form-field>
+</ng-container>
+
  

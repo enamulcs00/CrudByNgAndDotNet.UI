@@ -2,8 +2,10 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/features/auth/services/auth.service';
 import { ForgotPassword } from 'src/app/shared/models/ForgotPassword';
+import { ApiResponse, emailRegex } from 'src/app/shared/models/general';
 
 @Component({
     selector: 'app-forgot-password',
@@ -17,40 +19,50 @@ export class ForgotPasswordComponent {
   errorMessage!: string;
   showSuccess!: boolean;
   showError!: boolean;
+  loading = false;
   
-  constructor(private _authService: AuthService, private router:Router) { }
+  constructor(private _authService: AuthService, private router:Router, private cookieService: CookieService) { }
   
   ngOnInit(): void {
     this.forgotPasswordForm = new FormGroup({
-      email: new FormControl("", [Validators.required])
+      email: new FormControl("", [Validators.required,Validators.pattern(emailRegex
+      )])
     })
   }
 
-  public validateControl = (controlName: string) => {
-    return this.forgotPasswordForm.get(controlName)?.invalid && this.forgotPasswordForm.get(controlName)?.touched
-  }
-
-  public hasError = (controlName: string, errorName: string) => {
-    return this.forgotPasswordForm.get(controlName)?.hasError(errorName)
-  }
 
   public forgotPassword = (forgotPasswordFormValue:ForgotPassword):void => {
+  this.loading = true;
+
+    if(this.forgotPasswordForm.invalid){
+  this.loading = false;
+
+      this.forgotPasswordForm.markAllAsTouched();
+      this.forgotPasswordForm.updateValueAndValidity();
+      return
+    }
     this.showError = this.showSuccess = false;
     const forgotPass = { ...forgotPasswordFormValue };
 
     const forgotPassDto: ForgotPassword = {
       email: forgotPass.email,
-      clientURI: 'http://localhost:4200/account/resetpassword'
+      clientURI: 'http://localhost:4200/account/resetpassword',
+      token:''
     }
 
     this._authService.forgotPassword(forgotPassDto)
     .subscribe({
-      next: (_) => {
+      next: (res:ApiResponse<ForgotPassword>) => {
+      this.cookieService.set('resetToken', JSON.stringify(res?.data) ,
+        undefined, '/', undefined, true, 'Strict')
       this.showSuccess = true;
+      this.loading = false;
       this.successMessage = 'The link has been sent, please check your email to reset your password.'
       this.router.navigate(['/account/resetpassword'])
     },
     error: (err: HttpErrorResponse) => {
+  this.loading = false;
+
       this.showError = true;
       this.errorMessage = err.message;
     }})

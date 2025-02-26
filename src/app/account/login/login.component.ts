@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/features/auth/services/auth.service';
 import { ILoggedInUser } from 'src/app/features/auth/models/login-response.model';
+import { emailRegex } from 'src/app/shared/models/general';
 
 @Component({
     selector: 'app-login',
@@ -23,7 +24,7 @@ export class LoginComponent implements OnInit {
   }
   ngOnInit() {
     this.loginForm = this.fb.group({
-        email: ['', [Validators.required,Validators.pattern(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,3}))$/)]],
+        email: ['', [Validators.required,Validators.pattern(emailRegex)]],
         password: ['', Validators.required]
     });    
 }

@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { RegistrationResponseDto, User, UserForRegistrationDto } from '../models/user.model';
 import { CookieService } from 'ngx-cookie-service';
 import { ForgotPassword, ResetPasswordDto } from 'src/app/shared/models/ForgotPassword';
+import { ApiResponse } from 'src/app/shared/models/general';
 
 @Injectable({
   providedIn: 'root'
@@ -59,8 +60,8 @@ export class AuthService {
   }
 // forgot password
 
-public forgotPassword = (body: ForgotPassword) => {
-  return this.http.post(`${environment.apiBaseUrl}/api/Auth/ForgotPassword`, body);
+public forgotPassword = (body: ForgotPassword):Observable<ApiResponse<ForgotPassword>> => {
+  return this.http.post<ApiResponse<ForgotPassword>>(`${environment.apiBaseUrl}/api/Auth/ForgotPassword`, body);
 }
 
 public resetPassword = (body: ResetPasswordDto) => {

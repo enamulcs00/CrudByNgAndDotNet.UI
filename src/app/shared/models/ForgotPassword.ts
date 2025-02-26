@@ -1,6 +1,7 @@
 export interface ForgotPassword {
     email: string;
-    clientURI?: string;
+    clientURI: string;
+    token:string
 }
 
 export interface ResetPasswordDto {

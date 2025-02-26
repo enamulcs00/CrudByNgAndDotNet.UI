@@ -11,7 +11,6 @@ export function createGenericReducer<T extends BaseModel>(actions: GenericAction
     on(actions.load, (state) => ({
       ...state,
       loading: true,
-      loaded:false,
       error: null
     })),
     
@@ -25,15 +24,31 @@ export function createGenericReducer<T extends BaseModel>(actions: GenericAction
         ...state,
         entities,
         ids: items.map(item => item.id.toString()),
-        loading: false,
-        loaded:true
+        loading: false
       };
     }),
     
     on(actions.loadFailure, (state, { error }) => ({
       ...state,
       loading: false,
-      loaded:false,
+      error
+    })),
+
+    on(actions.loadById, (state) => ({
+      ...state,
+      loading: true,
+      error: null
+    })),
+
+    on(actions.loadByIdSuccess, (state, { item }) => ({
+      ...state,
+      entities: { ...state.entities, [item.id]: item },
+      loading: false
+    })),
+
+    on(actions.loadByIdFailure, (state, { error }) => ({
+      ...state,
+      loading: false,
       error
     })),
     
@@ -60,6 +75,11 @@ export function createGenericReducer<T extends BaseModel>(actions: GenericAction
     on(actions.select, (state, { id }) => ({
       ...state,
       selectedId: id
+    })),
+    
+    on(actions.setSearchTerm, (state, { searchTerm }) => ({
+      ...state,
+      searchTerm
     }))
   );
 }

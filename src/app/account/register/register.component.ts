@@ -36,13 +36,6 @@ export class RegisterComponent implements OnInit {
       this.passConfValidator.validateConfirmPassword(this.registerForm.get('password') as any)]);
     }
   
-    public validateControl = (controlName: string) => {
-      return this.registerForm.get(controlName)?.invalid && this.registerForm.get(controlName)?.touched
-    }
-  
-    public hasError = (controlName: string, errorName: string) => {
-      return this.registerForm.get(controlName)?.hasError(errorName)
-    }
   
     public registerUser = (registerFormValue:UserForRegistrationDto) => {
       this.showError = false;

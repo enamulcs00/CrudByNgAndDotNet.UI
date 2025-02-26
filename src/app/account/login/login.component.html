@@ -1,38 +1,40 @@
-<div class="card">
-  <h4 class="card-header">Login</h4>
-  <div class="card-body">
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-          <div class="mb-3">
-           <lib-input
-           appearance="outline"
-           label="Email"
-           [submitted]="submitted"
-           [formField]="loginForm.get('email')!"
-           formControlName="email"
-           fieldType="email"
-           
-           >
-           </lib-input>
-          </div>
-          <div class="mb-3">
-            <lib-input
-            appearance="outline"
-            label="Password"
-            [submitted]="submitted"
-            [formField]="loginForm.get('password')!"
-            formControlName="password"
-            fieldType="password"
-            >
-            </lib-input>
-          </div>
-          <div>
-              <button [disabled]="loading" class="btn btn-primary">
-                  <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
-                  Login
-              </button>
-              <a routerLink="../register" class="btn btn-link">Register</a>
-                <a [routerLink]="['/account/forgotpassword']" class="btn btn-link"> Forgot Password </a>
-          </div>
-      </form>
-  </div>
-</div>
+<mat-card class="p-0 m-0">
+  <mat-card-content class="p-0 m-0">
+    <div class="card border-0">
+      <h4 class="card-header">Login</h4>
+      <div class="card-body">
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+              <div class="mb-3">
+               <lib-input
+               appearance="outline"
+               label="Email"
+               [formField]="loginForm.get('email')!"
+               formControlName="email"
+               fieldType="email"
+               
+               >
+               </lib-input>
+              </div>
+              <div class="mb-3">
+                <lib-input
+                appearance="outline"
+                label="Password"
+                [formField]="loginForm.get('password')!"
+                formControlName="password"
+                fieldType="password"
+                >
+                </lib-input>
+              </div>
+              <div>
+                  <button [disabled]="loading" class="btn btn-primary">
+                      <span *ngIf="loading" class="spinner-border spinner-border-sm me-1"></span>
+                      Login
+                  </button>
+                  <a routerLink="../register" class="btn btn-link">Register</a>
+                    <a [routerLink]="['/account/forgotpassword']" class="btn btn-link"> Forgot Password </a>
+              </div>
+          </form>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

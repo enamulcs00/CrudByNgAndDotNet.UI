@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
-import { catchError, Observable, throwError } from 'rxjs';
+import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse, HttpResponse } from '@angular/common/http';
+import { catchError, Observable, throwError , tap} from 'rxjs';
 import { NgxToastrService } from 'src/app/shared/_services';
+import { ApiResponse } from 'src/app/shared/models/general';
 
 @Injectable()
 export class ErrorHandlerInterceptor implements HttpInterceptor {
@@ -10,7 +11,14 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     return next.handle(request)
-    .pipe(
+    .pipe(tap({
+      next: (event) => {
+        if (event instanceof HttpResponse) {
+          console.log('res', event.body);
+          this.ngxToastrService.show(event.body?.message,'toast-success',"Success")
+        }
+      }
+    }),
       catchError((error: HttpErrorResponse) => {        
         let errorMessage = this.handleError(error);
         this.ngxToastrService.show(errorMessage,'toast-error',"Error")

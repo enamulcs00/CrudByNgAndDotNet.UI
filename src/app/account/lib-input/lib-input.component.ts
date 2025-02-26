@@ -24,16 +24,18 @@ import {MatFormFieldAppearance} from '@angular/material/form-field';
     }
   ]
 })
-export class LibInputComponent implements OnInit  , ControlValueAccessor  {
+export class LibInputComponent implements OnInit , ControlValueAccessor  {
+@Input() inputBox:string = 'input'  // input, textarea  or select
 @Input() appearance : MatFormFieldAppearance = 'outline';
 @Input({required:true}) label! : string;
 @Input() placeholder : string = 'Please give your input';
 @Input() fieldType : string = 'text';
-@Input ({required:true}) submitted : boolean = false;
 @Input ({required:true}) formField!:AbstractControl;
 @Input({required:true}) formControlName:string = 'input_control';
 @Input() errorMessage:string = "This field is required.";
-
+@Input() enableCharCount:boolean = true;
+@Input() maxCharLength:number = 100;
+@Input()textAreaRows:number = 2;
 typeChange:string = 'text'
 hide = signal(true);
   constructor() {}
@@ -72,7 +74,7 @@ hide = signal(true);
           case 'maxlength': text = `Maximum length should be ${control.getError('maxlength')?.requiredLength}!`; break;
           case 'min': text = `Value should be at least ${control.getError('min')?.min}!`; break;
           case 'max': text = `Value should not exceed ${control.getError('max')?.max}!`; break;
-          case 'passwordMismatch': text = `Passwords do not match!`; break;
+          case 'mustMatch': text = `Passwords do not match!`; break;
           default: text = `${this.label} is invalid!`;
         }
         return text;

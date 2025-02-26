@@ -24,17 +24,6 @@ export class CategoryListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.categoryService.getCategoryCount()
-    //   .subscribe({
-    //     next: (value) => {
-    //       this.totalCount = value.data;
-    //       this.list = new Array(Math.ceil(value.data / this.pageSize))
-    //       console.log('list ', this.list);
-    //       const obj:IServiceParams = {};
-    //       obj.pageNumber = this.pageNumber
-    //       obj.pageSize = this.pageSize
-    //     }
-    //   })
      let param:IGetApi<Category> = {
           endPoint:endPoints.category.url,
           actionName:categoryActions,

@@ -1,75 +1,81 @@
-﻿<div class="card">
+﻿<mat-card class="p-0 m-0">
+  <mat-card-content class="p-0 m-0">
+    <div class="card border-0">
     <h4 class="card-header">Register</h4>
     <div class="card-body">
     <form [formGroup]="registerForm" autocomplete="off" novalidate (ngSubmit)="registerUser(registerForm.value)">
-          <div class="mb-3 row">
-            <label for="firstName" class="col-form-label col-sm-2">First Name:</label>
-            <div class="col-md-5">
-              <input type="text" id="firstName" formControlName="firstName" class="form-control" />
-            </div>
-            <div class="col-md-5">
-              <em *ngIf="validateControl('firstName') && hasError('firstName', 'required')">First name is required</em>
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label for="lastName" class="col-form-label col-sm-2">Last Name:</label>
-            <div class="col-md-5">
-              <input type="text" id="lastName" formControlName="lastName" class="form-control" />
-            </div>
-            <div class="col-md-5">
-              <em *ngIf="validateControl('lastName') && hasError('lastName', 'required')">Last name is required</em>
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label for="email" class="col-form-label col-sm-2">Email:</label>
-            <div class="col-md-5">
-              <input type="email" id="email" formControlName="email" class="form-control" />
-            </div>
-            <div class="col-md-5">
-              <em *ngIf="validateControl('email') && hasError('email', 'email')">Please provide a valid email</em>
-              <em *ngIf="validateControl('email') && hasError('email', 'required')">Email is required</em>
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label for="phone" class="col-form-label col-sm-2">Phone number:</label>
-            <div class="col-md-5">
-              <input type="tel" id="phone" formControlName="phoneNumber" class="form-control" />
-            </div>
-            <div class="col-md-5">
-              <em *ngIf="validateControl('phoneNumber') && hasError('phoneNumber', 'minlength')">Your phone must be at least 10 characters long.</em>
-              <em *ngIf="validateControl('phoneNumber') && hasError('phoneNumber', 'maxlength')">Your phone cannot exceed 10 characters.</em>
-              <em *ngIf="validateControl('phoneNumber') && hasError('phoneNumber', 'required')">Phone number is required</em>
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label for="address" class="col-form-label col-sm-2">Address:</label>
-            <div class="col-md-5">
-              <textarea id="address" formControlName="address" class="form-control" rows="4" cols="30"></textarea>
-            </div>
-            <div class="col-md-5">
-              <em *ngIf="validateControl('address') && hasError('address', 'required')">Address is required</em>
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label for="password" class="col-form-label col-sm-2">Password:</label>
-            <div class="col-md-5">
-              <input type="password" id="password" formControlName="password" class="form-control" />
-            </div>
-            <div class="col-md-5">
-              <em *ngIf="validateControl('password') && hasError('password', 'required')">Password is required</em>
-            </div>
-          </div>
-          <div class="mb-3 row">
-            <label for="confirm" class="col-form-label col-sm-2">Confirm Password:</label>
-            <div class="col-md-5">
-              <input type="password" id="confirm" formControlName="confirmPassword" class="form-control" />
-            </div>
-            <div class="col-md-5">
-              <em *ngIf="validateControl('confirmPassword') && hasError('confirmPassword', 'required')">Confirmation is required</em>
-              <em *ngIf="hasError('confirmPassword', 'mustMatch')">Passwords must match</em>
-            </div>
-          </div>
-          <br>
+      <div class="mb-3">
+        <lib-input
+        appearance="outline"
+        label="First name"
+        [formField]="registerForm.get('firstName')!"
+        formControlName="firstName"
+        fieldType="text">
+        </lib-input>
+       </div>   
+       <div class="mb-3">
+        <lib-input
+        appearance="outline"
+        label="Last name"
+        [formField]="registerForm.get('lastName')!"
+        formControlName="lastName"
+        fieldType="text">
+        </lib-input>
+       </div>  
+       <div class="mb-3">
+        <lib-input
+        appearance="outline"
+        label="Email"
+        [formField]="registerForm.get('email')!"
+        formControlName="email"
+        fieldType="email"
+        
+        >
+        </lib-input>
+       </div>
+       <div class="mb-3">
+        <lib-input
+        appearance="outline"
+        label="Phone number"
+        [formField]="registerForm.get('phoneNumber')!"
+        formControlName="phoneNumber"
+        fieldType="tel"
+        
+        >
+        </lib-input>
+       </div>
+       <div class="mb-3">
+        <lib-input
+        appearance="outline"
+        label="Address"
+        [formField]="registerForm.get('address')!"
+        formControlName="address"
+        fieldType="tel"
+        inputBox="textarea"
+        >
+        </lib-input>
+       </div>
+       <div class="mb-3">
+        <lib-input
+        appearance="outline"
+        label="Password"
+        [formField]="registerForm.get('password')!"
+        formControlName="password"
+        fieldType="password"
+        >
+        </lib-input>
+      </div>
+      <div class="mb-3">
+        <lib-input
+        appearance="outline"
+        label="Confirm password"
+        [formField]="registerForm.get('confirmPassword')!"
+        formControlName="confirmPassword"
+        fieldType="password"
+        >
+        </lib-input>
+      </div>
+         
           <div class="mb-3 row">
             <div class="col-md-1">
               <button type="submit" class="btn btn-info" [disabled]="!registerForm.valid">Register</button>
@@ -80,3 +86,5 @@
         </form>
     </div>
 </div>
+  </mat-card-content>
+</mat-card>
