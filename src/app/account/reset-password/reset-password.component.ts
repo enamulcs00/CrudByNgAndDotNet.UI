@@ -3,8 +3,10 @@ import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/fo
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from 'src/app/features/auth/services/auth.service';
+import { NgxToastrService } from 'src/app/shared';
 import { PasswordConfirmationValidatorService } from 'src/app/shared/custom-validators/password-confirmation-validator.service';
 import { ForgotPassword, ResetPasswordDto, ResetPasswordRequest } from 'src/app/shared/models/ForgotPassword';
+import { ApiResponse } from 'src/app/shared/models/general';
 
 @Component({
     selector: 'app-reset-password',
@@ -15,7 +17,7 @@ import { ForgotPassword, ResetPasswordDto, ResetPasswordRequest } from 'src/app/
 export class ResetPasswordComponent {
   resetPasswordForm!: FormGroup;
   constructor(private authService: AuthService, private passConfValidator: PasswordConfirmationValidatorService,
-    private cookie: CookieService, private router:Router) { }
+    private cookie: CookieService, private router:Router, private ngxToastrService: NgxToastrService) { }
 
   ngOnInit(): void {
     this.resetPasswordForm = new FormGroup({
@@ -37,8 +39,9 @@ export class ResetPasswordComponent {
 
     this.authService.resetPassword(resetPassDto)
       .subscribe({
-        next: () => {
-          this.router.navigate(['/account/login'])
+        next: (res:ApiResponse<string>) => {
+          this.ngxToastrService.show(res?.message,'toast-success',"Success");
+          this.router.navigate(['/account/login']);
         }
       })
   }

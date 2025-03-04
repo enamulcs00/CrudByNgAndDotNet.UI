@@ -14,8 +14,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
     .pipe(tap({
       next: (event) => {
         if (event instanceof HttpResponse) {
-          console.log('res', event.body);
-          this.ngxToastrService.show(event.body?.message,'toast-success',"Success")
+          //write your logic here on succes api response
         }
       }
     }),

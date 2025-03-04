@@ -6,9 +6,9 @@ import { Category, Product, Student, User } from '../models/general';
 export class CategoryService extends GenericService<Category> {
   // Dummy data for demonstration
   protected override items: Category[] = [
-    { id: '1', name: 'Electronics', description: 'Electronic devices and accessories' },
-    { id: '2', name: 'Books', description: 'Physical and digital books' },
-    { id: '3', name: 'Clothing', description: 'Apparel and fashion items' }
+    { id: '1', name: 'Electronics', urlHandle: 'Electronic devices and accessories' },
+    { id: '2', name: 'Books', urlHandle: 'Physical and digital books' },
+    { id: '3', name: 'Clothing', urlHandle: 'Apparel and fashion items' }
   ];
 }
 

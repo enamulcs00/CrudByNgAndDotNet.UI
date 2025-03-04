@@ -64,8 +64,8 @@ public forgotPassword = (body: ForgotPassword):Observable<ApiResponse<ForgotPass
   return this.http.post<ApiResponse<ForgotPassword>>(`${environment.apiBaseUrl}/api/Auth/ForgotPassword`, body);
 }
 
-public resetPassword = (body: ResetPasswordDto) => {
-  return this.http.post(`${environment.apiBaseUrl}/api/Auth/ResetPassword`, body);
+public resetPassword = (body: ResetPasswordDto):Observable<ApiResponse<string>> => {
+  return this.http.post<ApiResponse<string>>(`${environment.apiBaseUrl}/api/Auth/ResetPassword`, body);
 }
 
 public registerUser = (body: UserForRegistrationDto) => {

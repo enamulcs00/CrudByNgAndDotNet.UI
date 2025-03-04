@@ -10,6 +10,7 @@ import { GenericListComponent } from './list';
 
 
 @Component({
+  providers: [CategoryService],
   selector: 'app-category-list',
   standalone: true,
   imports: [CommonModule, GenericListComponent],
