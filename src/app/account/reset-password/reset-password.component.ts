@@ -2,11 +2,9 @@ import { Component } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { ApiResponse, ForgotPassword, NgxToastrService, PasswordConfirmationValidatorService, ResetPasswordDto, ResetPasswordRequest } from 'src/app/core';
 import { AuthService } from 'src/app/features/auth/services/auth.service';
-import { NgxToastrService } from 'src/app/shared';
-import { PasswordConfirmationValidatorService } from 'src/app/shared/custom-validators/password-confirmation-validator.service';
-import { ForgotPassword, ResetPasswordDto, ResetPasswordRequest } from 'src/app/shared/models/ForgotPassword';
-import { ApiResponse } from 'src/app/shared/models/general';
+
 
 @Component({
     selector: 'app-reset-password',

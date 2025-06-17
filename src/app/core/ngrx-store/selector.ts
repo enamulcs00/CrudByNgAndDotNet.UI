@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { GenericState } from './generic.state';
-import { BaseModel } from 'src/app/shared/models/general';
+import { BaseModel } from '..';
 
 export function createGenericSelectors<T extends BaseModel>(featureName: string) {
   const getFeatureState = createFeatureSelector<GenericState<T>>(featureName);
@@ -59,6 +59,10 @@ export function createGenericSelectors<T extends BaseModel>(featureName: string)
       });
     }
   );
+  const selectHasData = createSelector(
+    getFeatureState,
+    state => state.ids.length > 0
+  );
   return {
     selectAll,
     selectEntities,
@@ -68,6 +72,7 @@ export function createGenericSelectors<T extends BaseModel>(featureName: string)
     selectError,
     selectSelected,
     selectSearchTerm,
-    selectSearchResults
+    selectSearchResults,
+    selectHasData
   };
 }

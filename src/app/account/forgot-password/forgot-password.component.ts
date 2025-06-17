@@ -3,9 +3,10 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { ForgotPassword } from 'src/app/core/models/ForgotPassword';
+import { emailRegex, ApiResponse } from 'src/app/core/models/general';
 import { AuthService } from 'src/app/features/auth/services/auth.service';
-import { ForgotPassword } from 'src/app/shared/models/ForgotPassword';
-import { ApiResponse, emailRegex } from 'src/app/shared/models/general';
+
 
 @Component({
     selector: 'app-forgot-password',

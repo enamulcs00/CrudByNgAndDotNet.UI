@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ImageService } from './image.service';
 import { Observable } from 'rxjs';
-import { BlogImage } from '../../models/blog-image.model';
 import { NgForm } from '@angular/forms';
+import { BlogImage } from 'src/app/core/models/blog-image.model';
 
 @Component({
     selector: 'app-image-selector',

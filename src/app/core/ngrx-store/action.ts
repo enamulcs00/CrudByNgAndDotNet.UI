@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { BaseModel } from 'src/app/shared/models/general';
+import { BaseModel } from '..';
 
 export interface GenericActions<T extends BaseModel> {
   load: ReturnType<typeof createAction>;

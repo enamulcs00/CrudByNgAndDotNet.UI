@@ -1,5 +1,5 @@
+import { User } from "src/app/core/models/general";
 import { BlogPost } from "src/app/features/blog-post/models/blog-post.model";
-import { User } from "src/app/shared/models/user";
 
 export const USER_LIST_REQUEST = 'user list request';
 export const USER_LIST_SUCCESS = 'user list success';

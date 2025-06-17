@@ -1,9 +1,9 @@
 import { ActionReducerMap } from '@ngrx/store';
-import { Category, Product, Student, User } from 'src/app/shared/models/general';
 import { createGenericActions } from './action';
 import { GenericState } from './generic.state';
 import { createGenericReducer } from './reducer';
 import { BlogPost } from 'src/app/features/blog-post/models/blog-post.model';
+import { Category, Product, Student, User } from '..';
 
 
 export interface AppState {

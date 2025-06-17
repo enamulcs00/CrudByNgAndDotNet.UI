@@ -6,8 +6,8 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { RegistrationResponseDto, User, UserForRegistrationDto } from '../models/user.model';
 import { CookieService } from 'ngx-cookie-service';
-import { ForgotPassword, ResetPasswordDto } from 'src/app/shared/models/ForgotPassword';
-import { ApiResponse } from 'src/app/shared/models/general';
+import { ApiResponse, ForgotPassword, ResetPasswordDto } from 'src/app/core';
+
 
 @Injectable({
   providedIn: 'root'

@@ -23,13 +23,10 @@ import { ToastrModule } from 'ngx-toastr';
 import { ErrorHandlerInterceptor } from './core/interceptors/error-handler.interceptor';
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import { StoreModule } from '@ngrx/store';
-import { rootReducer } from './store/reducers';
-import { ApiService } from './shared/_services/api.service';
-import { HttpService } from './shared/_services/http.service';
-import { StoreRepoService } from './shared/_services/store-repo-service';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers } from './core/ngrx-store';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { ApiService, HttpService, StoreRepoService } from './core';
 @NgModule({ declarations: [
         AppComponent,
         NavbarComponent,

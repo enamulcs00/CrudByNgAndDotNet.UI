@@ -7,7 +7,7 @@ import { LayoutComponent } from '../layout/layout.component';
 import { LoginComponent } from '../login/login.component';
 import { RegisterComponent } from '../register/register.component';
 import { ResetPasswordComponent } from '../reset-password/reset-password.component';
-import { LibInputComponent } from '../lib-input/lib-input.component';
+import { LibInputComponent } from '../../shared/components/lib-input/lib-input.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';

@@ -6,7 +6,7 @@ import { Category } from '../models/category.model';
 import { environment } from 'src/environments/environment';
 import { UpdateCategoryRequest } from '../models/update-category-request.model';
 import { CookieService } from 'ngx-cookie-service';
-import { ApiResponse } from 'src/app/shared/models/general';
+import { ApiResponse } from 'src/app/core/models/general';
 
 @Injectable({
   providedIn: 'root'

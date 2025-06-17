@@ -23,7 +23,6 @@ import {
   UserUpdateAction
 } from 'src/app/store/actions/user-action';
 import {ApiService} from './api.service';
-import {User} from '../models/user';
 import {take} from 'rxjs/operators';
 import {
   CommentAddAction, CommentDeleteAction,
@@ -33,7 +32,7 @@ import {
   PostListSuccessAction
 } from 'src/app/store/actions/post-action';
 import { BlogPost } from 'src/app/features/blog-post/models/blog-post.model';
-import { ApiResponse, BaseModel, IGetApi, IPayloadApi,  } from '../models/general';
+import { ApiResponse, BaseModel, IGetApi, IPayloadApi, User,  } from '../models/general';
 import { Category } from 'src/app/features/category/models/category.model';
 import { CategoryListErrorAction, CategoryListRequestAction, CategoryListSuccessAction } from 'src/app/store/actions/category-action';
 import { AccountService } from './account.service';
@@ -86,10 +85,9 @@ export class StoreRepoService<T extends BaseModel> {
 
   getAll(param:IGetApi<T>): Observable<T[]> {
     const selector = createGenericSelectors<T>(param.featureName);
-    const loading$ = this.store.select(selector.selectLoading);
-    const loaded$ = this.store.select(selector.selectLoaded);
-    combineLatest([loaded$, loading$]).pipe(take(1)).subscribe((data) => {      
-      if ((!data[0] && !data[1]) || param.force) {        
+    const hasData$ = this.store.select(selector.selectHasData);
+    combineLatest([hasData$]).pipe(take(1)).subscribe((data) => {   
+      if(!data[0] || param.force) {        
         this.store.dispatch(param.actionName.load());
         this.apiService.getAll(param.endPoint).pipe(take(1)).subscribe({
           next:(value:ApiResponse<T[]>)=> {

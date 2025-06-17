@@ -1,9 +1,10 @@
-export * from './_services';
-export * from './routes/URLs';
-export * from './routes/endpoints';
-export * from './custom-validators/password-confirmation-validator.service';
-export * from './generic-list-component/category-list.component';
-export * from './generic-list-component/list';
+export * from '../shared/components/generic-table/generic-table.component';
+export * from '../shared/components/image-selector/image-selector.component';
+export * from '../shared/directives/click-outside.directive';
+export * from '../shared/directives/lazy-load-image.directive';
+export * from '../shared/pipes/truncate.pipe';
+
+
 
 
 

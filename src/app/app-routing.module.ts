@@ -11,7 +11,7 @@ import { BlogDetailsComponent } from './features/public/blog-details/blog-detail
 import { authGuard } from './features/auth/guards/auth.guard';
 
 const accountModule = () => import('./account/account-module/account.module').then(x => x.AccountModule);
-const usersModule = () => import('./users/users.module').then(x => x.UsersModule);
+const usersModule = () => import('./features/users/users.module').then(x => x.UsersModule);
 const routes: Routes = [
   {
     path: '',

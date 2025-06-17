@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogPost } from '../../blog-post/models/blog-post.model';
-import { StoreRepoService } from 'src/app/shared/_services/store-repo-service';
-import { Observable, take } from 'rxjs';
+import { Observable } from 'rxjs';
+import { IGetApi } from 'src/app/core/models/general';
 import { blogPostActions } from 'src/app/core/ngrx-store';
-import { endPoints } from 'src/app/shared/routes/endpoints';
-import { IGetApi } from 'src/app/shared/models/general';
+import { endPoints } from 'src/app/core/routes/endpoints';
+import { StoreRepoService } from 'src/app/core';
+
 
 @Component({
     selector: 'app-home',

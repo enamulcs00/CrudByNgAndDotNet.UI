@@ -7,7 +7,6 @@ import { CategoryService } from '../../category/services/category.service';
 import { Category } from '../../category/models/category.model';
 import { UpdateBlogPost } from '../models/update-blog-post.model';
 import { ImageService } from 'src/app/shared/components/image-selector/image.service';
-import { ApiResponse } from 'src/app/shared/models/general';
 
 @Component({
     selector: 'app-edit-blogpost',

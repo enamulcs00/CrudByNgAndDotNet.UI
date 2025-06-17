@@ -2,10 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../services/category.service';
 import { Category } from '../models/category.model';
 import { Observable } from 'rxjs';
-import { ApiResponse, IGetApi,  } from 'src/app/shared/models/general';
-import { StoreRepoService } from 'src/app/shared/_services';
-import { endPoints } from 'src/app/shared/routes/endpoints';
 import { categoryActions } from 'src/app/core/ngrx-store';
+import { endPoints, IGetApi, StoreRepoService } from 'src/app/core';
 
 @Component({
     selector: 'app-category-list',

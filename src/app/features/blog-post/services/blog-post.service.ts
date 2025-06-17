@@ -5,7 +5,7 @@ import { BlogPost } from '../models/blog-post.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { UpdateBlogPost } from '../models/update-blog-post.model';
-import { ApiResponse } from 'src/app/shared/models/general';
+import { ApiResponse } from 'src/app/core';
 
 @Injectable({
   providedIn: 'root'

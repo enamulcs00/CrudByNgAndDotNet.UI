@@ -4,11 +4,9 @@ import { Subscription } from 'rxjs';
 import { CategoryService } from '../services/category.service';
 import { Category } from '../models/category.model';
 import { UpdateCategoryRequest } from '../models/update-category-request.model';
-import { StoreRepoService } from 'src/app/shared/_services';
-import { IGetApi, IPayloadApi } from 'src/app/shared/models/general';
-import { endPoints } from 'src/app/shared/routes/endpoints';
 import { categoryActions } from 'src/app/core/ngrx-store';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { endPoints, IGetApi, IPayloadApi, StoreRepoService } from 'src/app/core';
 
 @Component({
     selector: 'app-edit-category',

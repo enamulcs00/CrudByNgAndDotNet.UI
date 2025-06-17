@@ -1,4 +1,4 @@
-import { BaseModel } from "src/app/shared/models/general";
+import { BaseModel } from "..";
 
 export interface GenericState<T extends BaseModel> {
   entities: { [key: string]: T };

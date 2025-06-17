@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BlogPost } from '../models/blog-post.model';
-import { ApiResponse, IGetApi } from 'src/app/shared/models/general';
-import { StoreRepoService } from 'src/app/shared/_services';
-import { blogPostActions } from 'src/app/core/ngrx-store';
-import { endPoints } from 'src/app/shared/routes/endpoints';
+import { blogPostActions, endPoints, IGetApi, StoreRepoService } from 'src/app/core';
+
 
 @Component({
     selector: 'app-blogpost-list',

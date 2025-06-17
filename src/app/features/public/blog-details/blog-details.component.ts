@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, take } from 'rxjs';
 import { BlogPost } from '../../blog-post/models/blog-post.model';
-import { StoreRepoService } from 'src/app/shared/_services';
 
 @Component({
     selector: 'app-blog-details',

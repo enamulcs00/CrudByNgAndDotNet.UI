@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/features/auth/services/auth.service';
 import { ILoggedInUser } from 'src/app/features/auth/models/login-response.model';
-import { emailRegex } from 'src/app/shared/models/general';
+import { emailRegex } from 'src/app/core';
 
 @Component({
     selector: 'app-login',

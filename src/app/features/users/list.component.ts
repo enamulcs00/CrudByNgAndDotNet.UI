@@ -1,9 +1,10 @@
 ﻿import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import {  IGetApi, User } from '../shared/models/general';
-import { StoreRepoService } from '../shared/_services';
-import { endPoints } from '../shared/routes/endpoints';
-import { userActions } from '../core/ngrx-store';
+import { StoreRepoService } from 'src/app/core';
+import { IGetApi, User } from 'src/app/core/models/general';
+import { userActions } from 'src/app/core/ngrx-store';
+import { endPoints } from 'src/app/core/routes/endpoints';
+
 
 
 

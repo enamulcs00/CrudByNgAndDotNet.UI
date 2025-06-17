@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
-import { BaseModel } from 'src/app/shared/models/general';
 import { GenericActions } from './action';
 import { initialGenericState, GenericState } from './generic.state';
+import { BaseModel } from '..';
 
 
 export function createGenericReducer<T extends BaseModel>(actions: GenericActions<T>) {

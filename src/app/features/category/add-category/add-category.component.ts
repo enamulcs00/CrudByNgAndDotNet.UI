@@ -1,10 +1,7 @@
 import { Component} from '@angular/core';
 import { AddCategoryRequest } from '../models/add-category-request.model';
-import { StoreRepoService } from 'src/app/shared/_services';
-import { endPoints } from 'src/app/shared/routes/endpoints';
-import { IPayloadApi } from 'src/app/shared/models/general';
-import { categoryActions } from 'src/app/core/ngrx-store';
-import { URLs } from 'src/app/shared/routes/URLs';
+import { categoryActions, endPoints, IPayloadApi, StoreRepoService, URLs } from 'src/app/core';
+
 
 @Component({
     selector: 'app-add-category',
