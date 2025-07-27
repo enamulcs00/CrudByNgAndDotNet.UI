@@ -15,7 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ClickOutsideDirective, GenericTableComponent, LazyLoadImageDirective, TruncatePipe } from '.';
+import { ClickOutsideDirective, EmptyStateComponent, GenericTableComponent, LazyLoadImageDirective, TruncatePipe } from '.';
 
 const MATERIAL_MODULES = [
   MatToolbarModule,
@@ -33,6 +33,7 @@ const MATERIAL_MODULES = [
 
 const STANDALONE_COMPONENTS = [
   GenericTableComponent,
+  EmptyStateComponent
 
 ];
 

@@ -1,16 +1,20 @@
-﻿import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+﻿import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { Observable, of } from 'rxjs';
 import { StoreRepoService } from 'src/app/core';
 import { IGetApi, User } from 'src/app/core/models/general';
 import { userActions } from 'src/app/core/ngrx-store';
 import { endPoints } from 'src/app/core/routes/endpoints';
+import { EmptyStateComponent } from 'src/app/shared';
 
 
 
 
 @Component({
     templateUrl: 'list.component.html',
-    standalone: false
+    standalone: true,
+    imports: [CommonModule , EmptyStateComponent , RouterModule],
 })
 export class ListComponent implements OnInit {
     users$?: Observable<User[]>;

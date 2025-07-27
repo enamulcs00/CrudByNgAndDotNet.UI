@@ -14,7 +14,6 @@ import { AddBlogpostComponent } from './features/blog-post/add-blogpost/add-blog
 import { MarkdownModule } from 'ngx-markdown';
 import { EditBlogpostComponent } from './features/blog-post/edit-blogpost/edit-blogpost.component';
 import { ImageSelectorComponent } from './shared/components/image-selector/image-selector.component';
-import { HomeComponent } from './features/public/home/home.component';
 import { BlogDetailsComponent } from './features/public/blog-details/blog-details.component';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { CommonModule } from '@angular/common';
@@ -27,21 +26,21 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers } from './core/ngrx-store';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ApiService, HttpService, StoreRepoService } from './core';
-@NgModule({ declarations: [
+@NgModule({ 
+    declarations: [
         AppComponent,
         NavbarComponent,
-        CategoryListComponent,
         AddCategoryComponent,
         EditCategoryComponent,
-        BlogpostListComponent,
         AddBlogpostComponent,
         EditBlogpostComponent,
         ImageSelectorComponent,
-        HomeComponent,
         BlogDetailsComponent,
     ],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    bootstrap: [AppComponent], imports: [BrowserModule,
+    bootstrap: [AppComponent], 
+    imports: [
+        BrowserModule,
         BrowserAnimationsModule,
         AppRoutingModule,
         FormsModule,
@@ -54,10 +53,15 @@ import { ApiService, HttpService, StoreRepoService } from './core';
             preventDuplicates: true,
         }),
         StoreModule.forRoot(reducers),
-        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() })],
-         providers: [
-            HttpService, ApiService, StoreRepoService,
-
+        StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+        // StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }), // duplicate, removed
+        BlogpostListComponent, // <-- moved here from declarations
+        CategoryListComponent, // <-- import standalone component here
+    ],
+    providers: [
+        HttpService, 
+        ApiService, 
+        StoreRepoService,
         {
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptor,
@@ -70,5 +74,6 @@ import { ApiService, HttpService, StoreRepoService } from './core';
         },
         provideHttpClient(withInterceptorsFromDi()),
         provideAnimationsAsync()
-    ] })
+    ]
+})
 export class AppModule { }

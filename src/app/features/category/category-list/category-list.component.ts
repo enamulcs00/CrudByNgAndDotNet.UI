@@ -4,12 +4,16 @@ import { Category } from '../models/category.model';
 import { Observable } from 'rxjs';
 import { categoryActions } from 'src/app/core/ngrx-store';
 import { endPoints, IGetApi, StoreRepoService } from 'src/app/core';
+import { EmptyStateComponent } from 'src/app/shared';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-category-list',
     templateUrl: './category-list.component.html',
     styleUrls: ['./category-list.component.css'],
-    standalone: false
+    standalone: true,
+    imports: [CommonModule, RouterModule, EmptyStateComponent]
 })
 export class CategoryListComponent implements OnInit {
   categories$?: Observable<Category[]>;

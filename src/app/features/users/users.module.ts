@@ -21,14 +21,14 @@ const routes: Routes = [
   @NgModule({
     declarations: [
         LayoutComponent,
-        ListComponent,
         AddEditComponent,
     ],
     imports: [
       CommonModule,
       SharedModule,
       ReactiveFormsModule,
-      RouterModule.forChild(routes)
+      RouterModule.forChild(routes),
+      ListComponent
     ],
     exports: [RouterModule]
   })

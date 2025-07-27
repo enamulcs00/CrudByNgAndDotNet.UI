@@ -5,13 +5,17 @@ import { IGetApi } from 'src/app/core/models/general';
 import { blogPostActions } from 'src/app/core/ngrx-store';
 import { endPoints } from 'src/app/core/routes/endpoints';
 import { StoreRepoService } from 'src/app/core';
+import { EmptyStateComponent } from 'src/app/shared';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.css'],
-    standalone: false
+    standalone: true,
+     imports: [CommonModule, EmptyStateComponent, RouterModule],
 })
 export class HomeComponent implements OnInit {
   blogs$?: Observable<BlogPost[]>;

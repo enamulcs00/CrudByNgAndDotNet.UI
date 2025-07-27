@@ -8,37 +8,35 @@
 
 
   <ng-container *ngIf="blogPosts$ | async as blogPosts">
-    <table class="table table-bordered mt-3">
+    <table class="table table-bordered mt-3" *ngIf="blogPosts && blogPosts.length > 0; else noBlogPosts">
       <thead>
-        <tr>
-          <th>Title</th>
-          <th>Short Description</th>
-          <th>Is Visible?</th>
-          <th>Categories</th>
-          <th> </th>
-        </tr>
+      <tr>
+        <th>Title</th>
+        <th>Short Description</th>
+        <th>Is Visible?</th>
+        <th>Categories</th>
+        <th> </th>
+      </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let blogPost of blogPosts">
-          <td>{{blogPost.title}}</td>
-          <td>{{blogPost.shortDescription}}</td>
-          <td>{{blogPost.isVisible}}</td>
-          <td>
-            <span *ngFor="let category of blogPost.categories">
-              <span class="badge bg-secondary me-2">{{category.name}}</span>
-            </span>
-          </td>
-          <td>
-            <a class="btn btn-light" [routerLink]="['/admin/blogposts', blogPost.id]">Edit</a>
-          </td>
-        </tr>
-        <tr *ngIf="!blogPosts">
-          <td colspan="4" class="text-center">
-              <span class="spinner-border spinner-border-lg align-center"></span>
-          </td>
+      <tr *ngFor="let blogPost of blogPosts">
+        <td>{{blogPost.title}}</td>
+        <td>{{blogPost.shortDescription}}</td>
+        <td>{{blogPost.isVisible}}</td>
+        <td>
+        <span *ngFor="let category of blogPost.categories">
+          <span class="badge bg-secondary me-2">{{category.name}}</span>
+        </span>
+        </td>
+        <td>
+        <a class="btn btn-light" [routerLink]="['/admin/blogposts', blogPost.id]">Edit</a>
+        </td>
       </tr>
       </tbody>
     </table>
+    <ng-template #noBlogPosts>
+     <app-empty-state></app-empty-state>
+    </ng-template>
 
 
   </ng-container>

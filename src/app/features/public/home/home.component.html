@@ -1,7 +1,7 @@
 <div class="container">
   <div class="my-5">
-    <div class="row align-items-strech">
-      <ng-container *ngIf="blogs$ | async as blogs">
+    <div class="row align-items-strech" *ngIf="blogs$ | async as blogs">
+      <ng-container *ngIf="blogs && blogs.length > 0; else noBlogs">
         <div class="col-12 col-md-4 mb-3" *ngFor="let blog of blogs">
           <div class="card h-100">
             <img [src]="blog.featuredImageUrl" class="card-img-top"
@@ -22,6 +22,9 @@
           </div>
         </div>
       </ng-container>
+      <ng-template #noBlogs>
+        <app-empty-state></app-empty-state>
+      </ng-template>
     </div>
   </div>
 </div>
