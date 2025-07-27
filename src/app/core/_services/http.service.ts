@@ -1,10 +1,11 @@
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Injectable} from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class HttpService {
-  private baseUrl = 'https://localhost:7226';
+  private baseUrl = environment.baseUrl
 
   constructor(private httpClient: HttpClient) {
   }

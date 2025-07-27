@@ -20,7 +20,7 @@ export class AuthService {
     private cookieService: CookieService) { }
 
   login(request: LoginRequest): Observable<ILoggedInUser> {
-    return this.http.post<ILoggedInUser>(`${environment.apiBaseUrl}/api/auth/login`, {
+    return this.http.post<ILoggedInUser>(`${environment.baseUrl}/api/auth/login`, {
       email: request.email,
       password: request.password
     });
@@ -61,14 +61,14 @@ export class AuthService {
 // forgot password
 
 public forgotPassword = (body: ForgotPassword):Observable<ApiResponse<ForgotPassword>> => {
-  return this.http.post<ApiResponse<ForgotPassword>>(`${environment.apiBaseUrl}/api/Auth/ForgotPassword`, body);
+  return this.http.post<ApiResponse<ForgotPassword>>(`${environment.baseUrl}/api/Auth/ForgotPassword`, body);
 }
 
 public resetPassword = (body: ResetPasswordDto):Observable<ApiResponse<string>> => {
-  return this.http.post<ApiResponse<string>>(`${environment.apiBaseUrl}/api/Auth/ResetPassword`, body);
+  return this.http.post<ApiResponse<string>>(`${environment.baseUrl}/api/Auth/ResetPassword`, body);
 }
 
 public registerUser = (body: UserForRegistrationDto) => {
-  return this.http.post<RegistrationResponseDto> (`${environment.apiBaseUrl}/api/Auth/register`, body);
+  return this.http.post<RegistrationResponseDto> (`${environment.baseUrl}/api/Auth/register`, body);
 }
 }

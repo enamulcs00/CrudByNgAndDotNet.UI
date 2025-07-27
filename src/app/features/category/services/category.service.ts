@@ -41,28 +41,28 @@ export class CategoryService {
       params = params.set('pageSize', pageSize)
     }
 
-    return this.http.get<Category[]>(`${environment.apiBaseUrl}/api/categories`, {
+    return this.http.get<Category[]>(`${environment.baseUrl}/api/categories`, {
       params: params
     });
   }
 
   getCategoryById(id: string): Observable<ApiResponse<Category>> {
-    return this.http.get<ApiResponse<Category>>(`${environment.apiBaseUrl}/api/categories/${id}`);
+    return this.http.get<ApiResponse<Category>>(`${environment.baseUrl}/api/categories/${id}`);
   }
 
   getCategoryCount(): Observable<ApiResponse<number>> {
-    return this.http.get<ApiResponse<number>>(`${environment.apiBaseUrl}/api/categories/count`);
+    return this.http.get<ApiResponse<number>>(`${environment.baseUrl}/api/categories/count`);
   }
 
   addCategory(model: AddCategoryRequest): Observable<void> {
-    return this.http.post<void>(`${environment.apiBaseUrl}/api/categories?addAuth=true`, model);
+    return this.http.post<void>(`${environment.baseUrl}/api/categories?addAuth=true`, model);
   }
 
   updateCategory(id: string, updateCategoryRequest: UpdateCategoryRequest): Observable<Category> {
-    return this.http.put<Category>(`${environment.apiBaseUrl}/api/categories/${id}?addAuth=true`, updateCategoryRequest);
+    return this.http.put<Category>(`${environment.baseUrl}/api/categories/${id}?addAuth=true`, updateCategoryRequest);
   }
 
   deleteCategory(id: string): Observable<Category> {
-    return this.http.delete<Category>(`${environment.apiBaseUrl}/api/categories/${id}?addAuth=true`)
+    return this.http.delete<Category>(`${environment.baseUrl}/api/categories/${id}?addAuth=true`)
   }
 }

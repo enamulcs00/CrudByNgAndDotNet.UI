@@ -1,3 +1,3 @@
 export const environment = {
-  apiBaseUrl: 'https://localhost:7226'
+    baseUrl: 'https://enamul-app-api.azurewebsites.net' // Updated base URL for production environment
 };

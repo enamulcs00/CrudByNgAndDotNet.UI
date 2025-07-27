@@ -17,7 +17,7 @@ export class AccountService {
       
     }
     getAllUsers() : Observable<ApiResponse<User[]>> {
-        return this.http.get<ApiResponse<User[]>>(`${environment.apiBaseUrl}/api/Users`).pipe(map(
+        return this.http.get<ApiResponse<User[]>>(`${environment.baseUrl}/api/Users`).pipe(map(
             data => data as ApiResponse<User[]>
         ));
       }
