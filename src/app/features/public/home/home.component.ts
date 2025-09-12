@@ -13,7 +13,7 @@ import { RouterModule } from '@angular/router';
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
-    styleUrls: ['./home.component.css'],
+    styleUrls: ['./home.component.scss'],
     standalone: true,
      imports: [CommonModule, EmptyStateComponent, RouterModule],
 })
@@ -30,6 +30,23 @@ export class HomeComponent implements OnInit {
                     featureName:'blogPost',
                   }
     this.blogs$ = this.serv.getAll(param);
+    let input = [
+  { name: "a", age: 20, year: 2020 },
+  { name: "b", age: 20, year: 2021 },
+  { name: "c", age: 20, year: 2020 },
+];
+
+let output = input.reduce((acc:any, curr:any) => {
+  const year = curr.year;
+  if (!acc[year]) {
+    acc[year] = [];
+  }
+  acc[year].push(curr);
+  return acc;
+}, {});
+
+console.log(output);
+
   }
   
 }

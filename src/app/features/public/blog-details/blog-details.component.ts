@@ -6,7 +6,7 @@ import { BlogPost } from '../../blog-post/models/blog-post.model';
 @Component({
     selector: 'app-blog-details',
     templateUrl: './blog-details.component.html',
-    styleUrls: ['./blog-details.component.css'],
+    styleUrls: ['./blog-details.component.scss'],
     standalone: false
 })
 export class BlogDetailsComponent implements OnInit {

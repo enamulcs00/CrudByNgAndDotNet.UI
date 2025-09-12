@@ -7,7 +7,7 @@ import { BlogImage } from 'src/app/core/models/blog-image.model';
 @Component({
     selector: 'app-image-selector',
     templateUrl: './image-selector.component.html',
-    styleUrls: ['./image-selector.component.css'],
+    styleUrls: ['./image-selector.component.scss'],
     standalone: false
 })
 export class ImageSelectorComponent implements OnInit {

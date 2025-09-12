@@ -9,7 +9,7 @@ import { AuthService } from 'src/app/features/auth/services/auth.service';
 @Component({
     selector: 'app-reset-password',
     templateUrl: './reset-password.component.html',
-    styleUrls: ['./reset-password.component.css'],
+    styleUrls: ['./reset-password.component.scss'],
     standalone: false
 })
 export class ResetPasswordComponent {

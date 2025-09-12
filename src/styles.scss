@@ -1,0 +1,56 @@
+/* You can add global styles to this file, and also import other style files */
+@use "ngx-toastr/toastr" as *;
+
+.images-container-modal {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 10;
+  padding: 50px;
+  background-color: rgba(0,0,0,0.5);
+}
+
+
+.blog-content img {
+  max-width: 100%;
+  margin: 2em 0 2em 0;
+}
+
+
+.btn-delete-user {
+  width: 40px;
+  text-align: center;
+  box-sizing: content-box;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+//working with mixins
+
+// styles.scss
+
+// Button mixin
+@mixin buttonStyle($bgColor, $textColor: white, $radius: 6px) {
+  background-color: $bgColor;
+  color: $textColor;
+  border: none;
+  border-radius: $radius;
+  padding: 10px 18px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: darken($bgColor, 10%);
+  }
+}
+
+@mixin flexCenter($direction: row) {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: $direction;
+}

@@ -11,7 +11,7 @@ import { ImageService } from 'src/app/shared/components/image-selector/image.ser
 @Component({
     selector: 'app-edit-blogpost',
     templateUrl: './edit-blogpost.component.html',
-    styleUrls: ['./edit-blogpost.component.css'],
+    styleUrls: ['./edit-blogpost.component.scss'],
     standalone: false
 })
 export class EditBlogpostComponent implements OnInit, OnDestroy {

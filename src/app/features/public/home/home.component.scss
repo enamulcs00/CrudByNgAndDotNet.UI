@@ -1,0 +1,47 @@
+@use 'src/styles.scss' as *;
+
+.mixinExample {
+  @include flexCenter(column); // center vertically + horizontally
+  height: 100vh;
+  text-align: center;
+
+  h2 {
+    margin-bottom: 20px;
+  }
+
+  button {
+    margin: 10px 0;
+    width: 200px;
+    max-width: 90%;
+  }
+}
+
+.primary-btn {
+  @include buttonStyle(#007bff, white, 8px); // blue button
+}
+
+.secondary-btn {
+  @include buttonStyle(#6c757d, white); // gray button
+}
+
+.danger-btn {
+  @include buttonStyle(#dc3545); // red button
+}
+
+
+// 🔹 Responsive buttons
+@media (max-width: 768px) {
+  .mixinExample button {
+    width: 80%;
+    font-size: 14px;
+    padding: 8px 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mixinExample button {
+    width: 100%;
+    font-size: 13px;
+    padding: 6px 12px;
+  }
+}

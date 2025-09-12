@@ -10,7 +10,7 @@ import { ImageService } from 'src/app/shared/components/image-selector/image.ser
 @Component({
     selector: 'app-add-blogpost',
     templateUrl: './add-blogpost.component.html',
-    styleUrls: ['./add-blogpost.component.css'],
+    styleUrls: ['./add-blogpost.component.scss'],
     standalone: false
 })
 export class AddBlogpostComponent implements OnInit, OnDestroy {

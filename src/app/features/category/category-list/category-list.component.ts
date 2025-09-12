@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
 @Component({
     selector: 'app-category-list',
     templateUrl: './category-list.component.html',
-    styleUrls: ['./category-list.component.css'],
+    styleUrls: ['./category-list.component.scss'],
     standalone: true,
     imports: [CommonModule, RouterModule, EmptyStateComponent]
 })

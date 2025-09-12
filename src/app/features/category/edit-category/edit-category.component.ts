@@ -11,7 +11,7 @@ import { endPoints, IGetApi, IPayloadApi, StoreRepoService } from 'src/app/core'
 @Component({
     selector: 'app-edit-category',
     templateUrl: './edit-category.component.html',
-    styleUrls: ['./edit-category.component.css'],
+    styleUrls: ['./edit-category.component.scss'],
     standalone: false
 })
 export class EditCategoryComponent implements OnInit, OnDestroy {

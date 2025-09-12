@@ -10,7 +10,7 @@ import { EmptyStateComponent } from 'src/app/shared';
 @Component({
     selector: 'app-blogpost-list',
     templateUrl: './blogpost-list.component.html',
-    styleUrls: ['./blogpost-list.component.css'],
+    styleUrls: ['./blogpost-list.component.scss'],
     standalone: true,
     imports: [CommonModule,RouterModule, EmptyStateComponent]
 
