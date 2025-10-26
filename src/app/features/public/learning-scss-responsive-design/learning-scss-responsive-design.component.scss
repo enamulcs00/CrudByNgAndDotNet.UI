@@ -1,0 +1,41 @@
+.parent {
+  width: auto;
+  height: auto;
+  padding: 15px;
+  border: 3px solid pink;
+  .child {
+  width: auto;
+  height: 100px;
+  padding: 10px;
+  margin: 10px;
+  color: #000;
+}
+  .child1 {
+
+    position: relative;
+    top: 0;
+    right: 0;
+   
+  }
+
+  .child3 {
+    background: orange;
+    position: fixed;
+    top: 0;    
+    right: 0;
+  }
+  .child4 {
+    background: purple;
+    position: sticky;
+    top: 0;
+    right: 0;
+  }
+    .child2 {
+    background: green;
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
+}
+
+

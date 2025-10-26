@@ -54,3 +54,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   align-items: center;
   flex-direction: $direction;
 }
+
+@mixin customSize {
+  height: 100px;
+  width: 100px;
+  
+}

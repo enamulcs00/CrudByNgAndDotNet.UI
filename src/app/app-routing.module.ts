@@ -9,6 +9,7 @@ import { EditBlogpostComponent } from './features/blog-post/edit-blogpost/edit-b
 import { HomeComponent } from './features/public/home/home.component';
 import { BlogDetailsComponent } from './features/public/blog-details/blog-details.component';
 import { authGuard } from './features/auth/guards/auth.guard';
+import { LearningScssResponsiveDesignComponent } from './features/public/learning-scss-responsive-design/learning-scss-responsive-design.component';
 
 const accountModule = () => import('./account/account-module/account.module').then(x => x.AccountModule);
 const usersModule = () => import('./features/users/users.module').then(x => x.UsersModule);
@@ -16,6 +17,10 @@ const routes: Routes = [
   {
     path: '',
     component: HomeComponent
+  },
+   {
+    path: 'learning',
+    component: LearningScssResponsiveDesignComponent
   },
   { path: 'admin/users', loadChildren: usersModule, canActivate: [authGuard] },
   { path: 'account', loadChildren: accountModule },
@@ -56,7 +61,7 @@ const routes: Routes = [
   },
 
    // otherwise redirect to home
-   { path: '**', redirectTo: '' }
+   { path: '**', redirectTo: 'learning' }
 ];
 
 @NgModule({

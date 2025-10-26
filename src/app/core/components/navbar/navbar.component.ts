@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User, dropDownMenuItems } from 'src/app/features/auth/models/user.model';
 import { AuthService } from 'src/app/features/auth/services/auth.service';
+import { config } from '../config';
 
 @Component({
     selector: 'app-navbar',
@@ -12,10 +13,8 @@ import { AuthService } from 'src/app/features/auth/services/auth.service';
 export class NavbarComponent implements OnInit {
   user?: User;
   img:string = "assets/images/name.png"
-  interView:string[] = ['Angular', '.Net Core']
-  dropDownMenuItems:dropDownMenuItems[] = [{text:'Categories', link:'/admin/categories'}, {text:'BlogPosts',link:'/admin/blogposts'}, {text:'Users',link:'/admin/users'},
-    {text:'Posts',link:'/admin/posts'}
-  ]
+  interView:dropDownMenuItems[] = config.interview;
+  dropDownMenuItems:dropDownMenuItems[] = config.items;
   constructor(private authService: AuthService,
     private router: Router) {
   }

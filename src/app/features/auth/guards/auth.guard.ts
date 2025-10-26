@@ -12,9 +12,11 @@ export const authGuard: CanActivateFn = (route, state) => {
 
   // Check for the JWT Token
   let token = cookieService.get('Authorization');
-
+ console.log("Token original", jwt_decode(token));
   if (token && user) {
     token = token.replace('Bearer ', '');
+    console.log("Token Details", jwt_decode(token));
+    
     const decodedToken: any = jwt_decode(token);
 
     // Check if token has expired

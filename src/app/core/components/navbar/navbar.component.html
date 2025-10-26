@@ -32,7 +32,7 @@
             </a>
             <ul class="dropdown-menu">
               <li *ngFor="let item of interView;  let last=last"
-              ><a class="dropdown-item" [routerLink]="[item]">{{item}}</a>
+              ><a class="dropdown-item" [routerLink]="[item.link]">{{item.text}}</a>
               <hr class="dropdown-divider" *ngIf="!last">
             </li>
             </ul>

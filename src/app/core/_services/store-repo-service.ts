@@ -14,7 +14,7 @@ import {
   getUserById,
   RootReducerState
 } from 'src/app/store/reducers';
-import {combineLatest, Observable} from 'rxjs';
+import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
 import {
   RegisteredUserListErrorAction,
   RegisteredUserListRequestAction,
@@ -43,9 +43,22 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class StoreRepoService<T extends BaseModel> {
+  // test subject
+ private user$ = new BehaviorSubject<User | null>({ id: '1', firstName: 'zahaz', email:'enamulcs008@gmail.com'});
   constructor(private store: Store<RootReducerState>, private apiService: ApiService<T>,private usrSrv:AccountService, private router:Router ) {
   }
+  setUser(user: User) {
+    this.user$.next(user);
+  }
 
+  getUser() {
+    return this.user$.asObservable();
+  }
+
+  // 👇 current value (non-reactive)
+  getCurrentUser() {
+    return this.user$.getValue();
+  }
   getRegisterdUsers(force = false): Observable<User[]> {
     const loading$ = this.store.select(getRegisteredUserLoading);
     const loaded$ = this.store.select(getRegisteredUserLoaded);

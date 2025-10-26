@@ -1,3 +1,21 @@
-<p>
-  learning-scss-responsive-design works!
-</p>
+<section>
+  <button (click)="Observ()">Next {{value}}</button>
+  <button (click)="ShowAll()">Show All</button>
+</section>
+<hr>
+<div class="parent">
+  <div class="child child1">
+
+    <p>Show All pused value of observable</p>
+    <ng-container *ngIf="valueGetter(); else noData">
+      <pre>{{ valueGetter()}}</pre>
+    </ng-container>
+    <ng-template #noData>
+      <span>No data yet</span>
+    </ng-template>
+  </div>
+  <div class="child child3">Fixed Element Enam</div>
+    <div class="child child2">Absolute Element</div>
+  <div class="child child4">Sticky Element</div>
+</div>
+
