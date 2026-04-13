@@ -71,6 +71,6 @@ export class EmptyStateComponent implements AfterContentInit{
     alert('Hello from Empty State Component!');
   }
   ngAfterContentInit() {
-  console.log(this.para.nativeElement.innerText);
+  console.log(this.para);
 }
 }

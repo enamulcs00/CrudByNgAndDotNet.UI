@@ -34,7 +34,6 @@ export class NavbarComponent implements OnInit {
 
   onLogout(): void {
     this.authService.logout();
-    this.router.navigateByUrl('/account/login');
   }
   isClick(item:any):void{
 console.log("item", item);

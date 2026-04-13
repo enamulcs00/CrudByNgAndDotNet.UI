@@ -26,6 +26,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { reducers } from './core/ngrx-store';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { ApiService, HttpService, StoreRepoService } from './core';
+import { RefreshTokenInterceptor } from './core/interceptors/refresh-token.interceptor';
 @NgModule({ 
     declarations: [
         AppComponent,
@@ -72,6 +73,7 @@ import { ApiService, HttpService, StoreRepoService } from './core';
             useClass: ErrorHandlerInterceptor,
             multi: true
         },
+         { provide: HTTP_INTERCEPTORS, useClass: RefreshTokenInterceptor, multi: true },
         provideHttpClient(withInterceptorsFromDi()),
         provideAnimationsAsync()
     ]

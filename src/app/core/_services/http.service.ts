@@ -14,9 +14,9 @@ export class HttpService {
     return this.httpClient
       .get(this.baseUrl + url,obj);
   }
-post(url:string , obj?:object):Observable<any>{
+post(url:string , obj?:object, options?:object):Observable<any>{
   return this.httpClient
-      .post(this.baseUrl + url,obj);
+      .post(this.baseUrl + url,obj,options);
 }
 put(url:string , obj?:object):Observable<any>{
   return this.httpClient

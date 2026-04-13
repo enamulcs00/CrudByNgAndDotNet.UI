@@ -1,44 +1,37 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
 import { AuthService } from '../services/auth.service';
-import jwt_decode from 'jwt-decode';
+import { catchError, map, of } from 'rxjs';
 
 export const authGuard: CanActivateFn = (route, state) => {
-  const cookieService = inject(CookieService);
+
   const authService = inject(AuthService);
   const router = inject(Router);
-  const user = authService.getUser();
 
-  // Check for the JWT Token
-  let token = cookieService.get('Authorization');
- console.log("Token original", jwt_decode(token));
-  if (token && user) {
-    token = token.replace('Bearer ', '');
-    console.log("Token Details", jwt_decode(token));
-    
-    const decodedToken: any = jwt_decode(token);
+  return authService.getCurrentUser().pipe(
+    map(user => {
 
-    // Check if token has expired
-    const expirationDate = decodedToken.exp * 20000;
-    const currentTime = new Date().getTime();
-    if (expirationDate < currentTime) {
-      // Logout
-      authService.logout();
-      return router.createUrlTree(['/account/login'], { queryParams: { returnUrl: state.url } })
-    } else {
-      // Token is still valid
-
-      if (user.roles.includes('Writer')) {
-        return true;
-      } else {
-        alert('Unauthorized');
-        return false;
+      if (!user) {
+        return router.createUrlTree(
+          ['/account/login'],
+          { queryParams: { returnUrl: state.url } }
+        );
       }
-    }
-  } else {
-    // Logout
-    authService.logout();
-    return router.createUrlTree(['/account/login'], { queryParams: { returnUrl: state.url } })
-  }
+
+      const allowedRoles = route.data?.['roles'] as string[];
+
+      if (!allowedRoles || allowedRoles.length === 0) {
+        return true;
+      }
+
+      const hasRole = user.roles.some(
+        (r: string) => allowedRoles.includes(r)
+      );
+
+      return hasRole
+        ? true
+        : router.createUrlTree(['/account/login']);
+    }),
+    catchError(() => of(false)) 
+  );
 };

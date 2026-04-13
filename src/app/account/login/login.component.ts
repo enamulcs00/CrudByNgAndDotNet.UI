@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/features/auth/services/auth.service';
@@ -19,7 +18,7 @@ export class LoginComponent implements OnInit {
   submitted = false;
 
   constructor(private authService: AuthService,
-    private cookieService: CookieService, private fb:FormBuilder,
+    private fb:FormBuilder,
     private router: Router) {
   }
   ngOnInit() {
@@ -42,10 +41,6 @@ export class LoginComponent implements OnInit {
     .subscribe({
       next: (response:ILoggedInUser) => {
         this.loading = false;
-        // Set Auth Cookie
-        this.cookieService.set('Authorization', `Bearer ${response.data.token}`,
-        undefined, '/', undefined, true, 'Strict');
-
         // Set User
         this.authService.setUser({
           email: response.data.email,

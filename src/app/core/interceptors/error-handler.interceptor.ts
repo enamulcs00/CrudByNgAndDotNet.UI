@@ -21,7 +21,7 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
       catchError((error: HttpErrorResponse) => {        
         let errorMessage = this.handleError(error);
         this.ngxToastrService.show(errorMessage,'toast-error',"Error")
-        return throwError(() => new Error(errorMessage));
+       return throwError(() => error);
       })
     );
   }

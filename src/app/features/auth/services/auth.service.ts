@@ -5,8 +5,8 @@ import { ILoggedInUser } from '../models/login-response.model';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { RegistrationResponseDto, User, UserForRegistrationDto } from '../models/user.model';
-import { CookieService } from 'ngx-cookie-service';
 import { ApiResponse, ForgotPassword, ResetPasswordDto } from 'src/app/core';
+import { Router } from '@angular/router';
 
 
 @Injectable({
@@ -16,16 +16,15 @@ export class AuthService {
 
   $user = new BehaviorSubject<User | undefined>(undefined);
 
-  constructor(private http: HttpClient,
-    private cookieService: CookieService) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
-  login(request: LoginRequest): Observable<ILoggedInUser> {
-    return this.http.post<ILoggedInUser>(`${environment.baseUrl}/api/auth/login`, {
-      email: request.email,
-      password: request.password
-    });
-  }
-
+login(request: LoginRequest): Observable<ILoggedInUser> {
+  return this.http.post<ILoggedInUser>(
+    `${environment.baseUrl}/api/auth/login`,
+    request,
+    { withCredentials: true }
+  );
+}
 
   setUser(user: User): void {
     this.$user.next(user);
@@ -52,12 +51,19 @@ export class AuthService {
 
     return undefined;
   }
-
-  logout(): void {
+  logout():void {
+  this.http.post(`${environment.baseUrl}/api/auth/logout`, {},{ withCredentials: true }).subscribe({
+    next: () => {
     localStorage.clear();
-    this.cookieService.delete('Authorization', '/');
+    sessionStorage.clear();
     this.$user.next(undefined);
-  }
+    this.router.navigateByUrl('/account/login');
+    }
+  });
+}
+getCurrentUser(): Observable<any> {
+  return this.http.get(`${environment.baseUrl}/api/auth/me`,{ withCredentials: true });
+}
 // forgot password
 
 public forgotPassword = (body: ForgotPassword):Observable<ApiResponse<ForgotPassword>> => {
